@@ -7,9 +7,9 @@ import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.RequestBuffer;
 
-/**
- * Created by Daniele on 27.09.2016.
- */
+import java.io.IOException;
+
+
 public class RemListener {
 
     @EventSubscriber
@@ -32,9 +32,52 @@ public class RemListener {
             switch (msg.substring(pre.length())) {
                 case "ping":
                     ping(event);
+                    break;
+                case"rem":
+                    randomRem(event);
+                    break;
+                case"morning":
+                    remMorning(event);
+                    break;
+                default:
+                    wrongCommand(event);
+                    break;
 
             }
         }
+    }
+
+    public void remMorning(MessageReceivedEvent event){
+        RequestBuffer.request(() ->{
+            try {
+                event.getMessage().getChannel().sendFile(fileStorage.morningRem);
+                event.getMessage().reply("Good Morning");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (MissingPermissionsException e) {
+                e.printStackTrace();
+            } catch (DiscordException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    public void randomRem(MessageReceivedEvent event){
+        int picToSend = RandomNumberGen.getRandint(fileStorage.remPics.length);
+        RequestBuffer.request(() -> {
+            try {
+                event.getMessage().getChannel().sendFile(fileStorage.remFiles.get(picToSend));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (MissingPermissionsException e) {
+                e.printStackTrace();
+            } catch (RateLimitException e) {
+                e.printStackTrace();
+            } catch (DiscordException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 
@@ -45,7 +88,7 @@ public class RemListener {
                 try {
                      IMessage message = event.getMessage().getChannel().sendMessage("Pong!");
 
-                     message.edit(message.getContent() + " (" + ((System.nanoTime() - startTime) / 1000000) + "ms RTT)");
+                     message.edit(message.getContent() + " (" + ((System.nanoTime() - startTime) / 1000000) + "ms RTT) :ping_pong: ");
                 } catch (MissingPermissionsException e) {
                     e.printStackTrace();
                 } catch (RateLimitException e) {
@@ -55,6 +98,18 @@ public class RemListener {
                 }
             });
 
+    }
+
+    public void wrongCommand(MessageReceivedEvent event){
+        RequestBuffer.request(()->{
+            try {
+                event.getMessage().getChannel().sendMessage("Error; Command Unknown.");
+            } catch (MissingPermissionsException e) {
+                e.printStackTrace();
+            } catch (DiscordException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 }

@@ -6,10 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-/**
- * Created by Daniele on 27.09.2016.
- */
-
 
 public class RemBot {
 
@@ -20,6 +16,8 @@ public class RemBot {
     } catch (DiscordException e) {
 
     }
+
+        fileStorage.storage();
     }
 
     public static IDiscordClient getClient(String token, boolean login) throws DiscordException { // Returns an instance of the Discord client
@@ -30,6 +28,8 @@ public class RemBot {
         } else {
             return clientBuilder.build(); // Creates the client instance but it doesn't log the client in yet, you would have to call client.login() yourself
         }
+
+
     }
 
     private static String getToken(){
@@ -45,7 +45,7 @@ public class RemBot {
         } catch (IOException ignored){}
 
         if(token.length() != 59)
-            System.exit(-1);
+            System.exit(-2);
 
         return token;
     }
