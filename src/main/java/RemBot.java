@@ -16,7 +16,7 @@ public class RemBot {
     } catch (DiscordException e) {
 
     }
-
+        AFKcommand.loadList();
         fileStorage.storage();
     }
 

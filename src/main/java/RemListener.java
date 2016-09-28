@@ -8,6 +8,15 @@ import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.RequestBuffer;
 
 import java.io.IOException;
+/* TODO
+            Purge Command
+            Whitelist command
+            List Command
+            SL Command
+            AFK Command
+            OP Command
+            CoinFlip Command
+ */
 
 
 public class RemListener {
@@ -28,8 +37,9 @@ public class RemListener {
         }
         String msg = event.getMessage().getContent();
         String pre = "+";
-        if(msg.startsWith(pre)) {
-            switch (msg.substring(pre.length())) {
+        String[] msgL = msg.split("\\s");
+        if(msgL[0].startsWith(pre)) {
+            switch (msgL[0].substring(pre.length())) {
                 case "ping":
                     ping(event);
                     break;
@@ -39,12 +49,68 @@ public class RemListener {
                 case"morning":
                     remMorning(event);
                     break;
+                case"afk":
+                    AFKcommand.afk(event);
+                    break;
+                //case event.getMessage().getMentions():
+                  //  break;
+                case"flip":
+                    coinFlip(event);
+                    break;
+                case"purge":
+                    purge.purge(event);
+                    break;
+
                 default:
                     wrongCommand(event);
                     break;
 
             }
         }
+        /*if(AFKcommand.checkAFK(event.getMessage().getMentions().toString(), event.getMessage().getGuild().getID())){
+            try {
+                event.getMessage().getChannel().sendMessage("Mentioned User is AFK");
+            } catch (MissingPermissionsException e) {
+                e.printStackTrace();
+            } catch (RateLimitException e) {
+                e.printStackTrace();
+            } catch (DiscordException e) {
+                e.printStackTrace();
+            }
+        }*/
+    }
+    @EventSubscriber
+    public void afkCheck(MessageReceivedEvent event){
+        if(event.getMessage().getMentions().toString().length() > 2) {
+            if (AFKcommand.checkAFK(event.getMessage().getMentions().toString(), event.getMessage().getGuild().getID())) {
+                try {
+                    event.getMessage().getChannel().sendMessage("Mentioned User is AFK");
+                } catch (MissingPermissionsException e) {
+                    e.printStackTrace();
+                } catch (RateLimitException e) {
+                    e.printStackTrace();
+                } catch (DiscordException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            return;
+        }
+    }
+
+    public void coinFlip(MessageReceivedEvent event){
+        int picToSend = RandomNumberGen.getRandint((fileStorage.coinPics.length));
+        RequestBuffer.request(() ->{
+            try {
+                event.getMessage().getChannel().sendFile(fileStorage.coinFiles.get(picToSend));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (MissingPermissionsException e) {
+                e.printStackTrace();
+            } catch (DiscordException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void remMorning(MessageReceivedEvent event){

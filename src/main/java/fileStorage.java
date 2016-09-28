@@ -4,7 +4,9 @@ import java.util.List;
 
 public class fileStorage {
     public static String[] remPics;
+    public static String[] coinPics;
     public static List<File> remFiles = new ArrayList<>();
+    public static List<File> coinFiles = new ArrayList<>();
     public static File morningRem;
 
     /*
@@ -43,6 +45,14 @@ for (String element : stringList) {
                 "resources/rempics/rem16.jpg", "resources/rempics/rem17.jpg", "resources/rempics/rem18.jpg", "resources/rempics/rem19.jpg", "resources/rempics/rem20.png",
                 "resources/rempics/rem21.png", "resources/rempics/rem22.jpg"
         };
+        coinPics = new String[]{
+            "resources/coin/obverse.png" ,"resources/coin/reverse.png"
+        };
+        for(String coinPic : coinPics){
+            coinFiles.add(new File(coinPic));
+        }
+
+
         for (String remPic : remPics) {
             remFiles.add(new File(remPic));
         }
