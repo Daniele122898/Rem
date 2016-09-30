@@ -79,6 +79,8 @@ public class RemListener {
                 case"system":
                     system.sysInfo(event);
                     break;
+                case"git":
+                    gitHub(event);
                 default:
                     //wrongCommand(event);
                     break;
@@ -146,6 +148,18 @@ public class RemListener {
             try {
                 event.getMessage().getChannel().sendFile(fileStorage.remFiles.get(picToSend));
             } catch (MissingPermissionsException |DiscordException | IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void gitHub(MessageReceivedEvent event){
+        RequestBuffer.request(()->{
+            try {
+                event.getMessage().getChannel().sendMessage(
+                        "https://github.com/Daniele122898/Rem"
+                );
+            } catch (MissingPermissionsException |DiscordException e) {
                 e.printStackTrace();
             }
         });

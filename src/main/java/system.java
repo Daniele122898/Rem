@@ -40,7 +40,7 @@ And lastly the max usable ram is the maximum amount of ram your JVM may EVER use
         RequestBuffer.request(()->{
         try {
             event.getMessage().getChannel().sendMessage(
-                    ":information_source:System Info ```" +
+                    ":information_source: System Info ```" +
                             "Total Allocated Ram: " + totalRam+ " mb\n" +
                             "Used allocated Ram:  " + allocatedRamUse+ " mb\n" +
                             "Free allocated Ram:  " + allocatedRam+ " mb\n" +
