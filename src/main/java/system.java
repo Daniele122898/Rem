@@ -9,12 +9,7 @@ import sx.blah.discord.util.RequestBuffer;
 public class system {
     public static Runtime runtime = Runtime.getRuntime();
 
-    public static void sysInfo(MessageReceivedEvent event){
-        float totalRam = Math.round(runtime.totalMemory()/ 1048576F); // all it is using rn as a proccess
-        float allocatedRamUse = Math.round((runtime.totalMemory() - runtime.freeMemory()) / 1048576F); //java programm itself is using
-        float allocatedRam = Math.round(runtime.freeMemory() / 1048576F);
-        float maxRam = Math.round(runtime.maxMemory() / 1048576F); //Max ram for JAVA
-        /*
+    /*
         Regarding your question: {ram usage} / 1048576F is a shortcut for {ram usage in bytes} / 1024 / 1024 => usage in MB
         Max Ram => Max amount of ram the JVM can access
         Total ram => Total amount of memory the JVM has pre-allocated
@@ -37,14 +32,31 @@ The used allocated ram is the amount of stuff the JVM has already thrown onto th
 The free allocated ram is basically "how many stuff the JVM can throw onto that pile until it needs to be resized"
 And lastly the max usable ram is the maximum amount of ram your JVM may EVER use.(edited)
          */
+
+    public static void sysInfo(MessageReceivedEvent event){
+        float totalRam = Math.round(runtime.totalMemory()/ 1048576F); // all it is using rn as a proccess
+        float allocatedRamUse = Math.round((runtime.totalMemory() - runtime.freeMemory()) / 1048576F); //java programm itself is using
+        float allocatedRam = Math.round(runtime.freeMemory() / 1048576F);
+        float maxRam = Math.round(runtime.maxMemory() / 1048576F); //Max ram for JAVA
+
         RequestBuffer.request(()->{
         try {
             event.getMessage().getChannel().sendMessage(
-                    ":information_source: System Info ```" +
+                    ":information_source: System Info ```\n" +
+                            "----------------------------------------------------\n" +
+                            "Ram Allocation\n" +
+                            "----------------------------------------------------\n\n" +
                             "Total Allocated Ram: " + totalRam+ " mb\n" +
                             "Used allocated Ram:  " + allocatedRamUse+ " mb\n" +
                             "Free allocated Ram:  " + allocatedRam+ " mb\n" +
-                            "Max. usable Ram:     " + maxRam+ " mb\n" +
+                            "Max. usable Ram:     " + maxRam+ " mb\n\n" +
+                            "----------------------------------------------------\n" +
+                            "Connections\n" +
+                            "----------------------------------------------------\n\n" +
+                            "Connected Servers: " + RemListener.getServers() + "\n" +
+                            "Watching Channels: "+ RemListener.getChannels() + "\n" +
+                            "Users with access: " + RemListener.getUsers() + "\n\n" +
+                            "----------------------------------------------------\n\n" +
                             "```"
             );
         } catch (MissingPermissionsException|DiscordException  e) {

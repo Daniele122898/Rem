@@ -160,7 +160,9 @@ public class help {
                                         "Total Allocated Ram = Total Heap size\n" +
                                         "Used allocated Ram = actual used Ram\n" +
                                         "Free allocated Ram = Free space on heap\n" +
-                                        "Max. usable Ram = Max ram the JVM can use to increae heapsize\n" +
+                                        "Max. usable Ram = Max ram the JVM can use to increae heapsize\n\n" +
+                                        "----------------------------------------------------\n\n" +
+                                        "Shows established connections with; Servers, Channels and Users\n" +
                                         "```" +
                                         "Love to 0xFADED who explained this :heart:"
 

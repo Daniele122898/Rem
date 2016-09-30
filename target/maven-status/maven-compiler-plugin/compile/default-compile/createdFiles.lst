@@ -1,7 +1,9 @@
 RemListener.class
+system.class
 AFKcommand.class
 RemBot.class
 RandomNumberGen.class
+Reminder.class
 fileStorage.class
 help.class
 whitelist.class

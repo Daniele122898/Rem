@@ -7,20 +7,18 @@ import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 /* TODO
-            Purge Command
-            Whitelist command
-            List Command
-            SL Command
-            AFK Command
-            OP Command
-            CoinFlip Command
+
  */
 
 
 public class RemListener {
 
     private static String pre;
+    private static AtomicInteger channels = new AtomicInteger(0);
+    private static AtomicInteger users = new AtomicInteger(0);
+    private static int servers;
 
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) { // This method is called when the ReadyEvent is dispatched
@@ -29,6 +27,38 @@ public class RemListener {
         fileStorage.storage();
         whitelist.load();
 
+
+
+        servers = event.getClient().getGuilds().size();
+        //final int[] channels = {0};
+        //final int[] users = {0};
+
+
+        event.getClient().getGuilds().forEach(guild -> {
+            guild.getChannels().forEach(channel -> { channels.addAndGet(1); });
+        });
+
+
+        event.getClient().getGuilds().forEach(guild -> {
+            guild.getUsers().forEach(user -> { users.addAndGet(1); });
+        });
+
+        /*
+        event.getClient().getGuilds().forEach(guild -> {
+            guild.getChannels().forEach(channel -> { channels[0]++; });
+        });
+
+
+        event.getClient().getGuilds().forEach(guild ->{
+           guild.getUsers().forEach(channel -> {users[0]++;});
+        });
+         */
+
+        System.out.println("Servers: " + servers);
+        //System.out.println("Channels: " + channels[0]);
+        //System.out.println("Users: " + users[0]);
+        System.out.println("Channles: " + channels.get());
+        System.out.println("Users: " + users.get());
 
     }
     //@EventSubscriber
@@ -91,6 +121,7 @@ public class RemListener {
                     system.sysInfo(event);
                     break;
                 case"git":
+                case"github":
                     gitHub(event);
                     break;
                 case"invite":
@@ -223,6 +254,17 @@ public class RemListener {
 
     public static String getPre(){
         return pre;
+    }
+    public static AtomicInteger getChannels(){
+        return channels;
+    }
+
+    public static AtomicInteger getUsers(){
+        return users;
+    }
+
+    public static int getServers(){
+        return servers;
     }
 
 }
