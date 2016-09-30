@@ -41,6 +41,17 @@ public class RemListener {
         if(event.getMessage().getAuthor().isBot()) {
             return;
         }
+        if(event.getMessage().getChannel().isPrivate()){
+            RequestBuffer.request(()-> {
+                try {
+                    event.getMessage().getChannel().sendMessage("Doesn't work in private channels!");
+                } catch (MissingPermissionsException | DiscordException e) {
+                    e.printStackTrace();
+                }
+            });
+            return;
+            }
+
         String msg = event.getMessage().getContent();
         pre = ";";
         String[] msgL = msg.split("\\s");
