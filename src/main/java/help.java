@@ -17,33 +17,12 @@ public class help {
             RequestBuffer.request(()->{
             try {
                 event.getMessage().getChannel().sendMessage(
-                        "                           :information_source: Commands " + "```" +
-                        //"---------------------------------------------------------------------- \n\n" +
-                        "ping: Check's the RTT ping\n\n" +
-                       // "----------------------------------------------------------------------\n" +
-                        "rem: Posts random pictures of rem \n\n" +
-                        //"----------------------------------------------------------------------\n" +
-                        "morning: Rem will say good morning to you ;) \n\n" +
-                        //"----------------------------------------------------------------------\n" +
-                        "afk: Will set you afk so that when users mention you they will get " +
-                        "a message from Rem, stating that you are afk\n\n" +
-                        //"----------------------------------------------------------------------\n" +
-                        "flip: Flips a coin for you\n\n" +
-                        //"----------------------------------------------------------------------\n" +
-                        "purge <n>: Will delete the last n messages for you up to 100 " +
-                        "messages max (RateLimit) \n\n" +
-                        //"----------------------------------------------------------------------\n" +
-                        "wh <mention>: Will whitelist the mentioned user\n\n" +
-                        //"----------------------------------------------------------------------\n" +
-                        "rmwh <mention>: Will remove the mentioned user of the Whitelist\n\n" +
-                        //"----------------------------------------------------------------------\n" +
-                        "help: Displays this message\n\n" +
-                        //"----------------------------------------------------------------------\n" +
-                        "help <command>: gives further information about the command\n\n" +
-                         "system: gives information about the Ram usage.\n\n" +
-                         "about: Find out about everyone who contributed significantly\n\n" +
-                        //"---------------------------------------------------------------------- " +
-                        "```");
+                                ":information_source: Commands " + "```" +
+                                "ping     rem     morning     afk     flip     purge     rmwh\n\n" +
+                                "wh      system      about   invite   help     git\n\n" +
+                                "```" +
+                         "**h <command>:**  gives further information about the command"
+                        );
             } catch (MissingPermissionsException | DiscordException e) {
                 e.printStackTrace();
             }
@@ -210,10 +189,40 @@ public class help {
                         e.printStackTrace();
                     }
                     break;
+                case"git":
+                    try {
+                        event.getMessage().getChannel().sendMessage(
+                                ":information_source: Commands > git ```" +
+                                        RemListener.getPre()+"git \n\n"+
+                                        "ParameterType: None\n\n" +
+                                        "Premissions needed: none\n\n" +
+                                        "Will post a Link to Rem's Github page\n" +
+                                        "```"
+                        );
+                    } catch (MissingPermissionsException |RateLimitException |DiscordException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case"invite":
+                case"inv":
+                    try {
+                        event.getMessage().getChannel().sendMessage(
+                                ":information_source: Commands > invite ```" +
+                                        RemListener.getPre()+"invite \n"+
+                                        RemListener.getPre()+"inv \n\n"+
+                                        "ParameterType: None\n\n" +
+                                        "Premissions needed: none\n\n" +
+                                        "Will post the link needed to invite Rem to your Discord Server\n" +
+                                        "```"
+                        );
+                    } catch (MissingPermissionsException |RateLimitException |DiscordException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 default:
                 RequestBuffer.request(() -> {
                     try {
-                        event.getMessage().getChannel().sendMessage("Not added yet :/");
+                        event.getMessage().getChannel().sendMessage("Invalid Command");
                     } catch (MissingPermissionsException | DiscordException e) {
                         e.printStackTrace();
                     }

@@ -81,6 +81,11 @@ public class RemListener {
                     break;
                 case"git":
                     gitHub(event);
+                    break;
+                case"invite":
+                case"inv":
+                    invBot(event);
+                    break;
                 default:
                     //wrongCommand(event);
                     break;
@@ -157,6 +162,7 @@ public class RemListener {
         RequestBuffer.request(()->{
             try {
                 event.getMessage().getChannel().sendMessage(
+                        "Link to my github:\n"+
                         "https://github.com/Daniele122898/Rem"
                 );
             } catch (MissingPermissionsException |DiscordException e) {
@@ -179,6 +185,18 @@ public class RemListener {
                 }
             });
 
+    }
+
+    public void invBot(MessageReceivedEvent event){
+        RequestBuffer.request(()->{
+            try {
+                event.getMessage().getChannel().sendMessage(
+                        "To invite Me just open this link and choose the Server: \n"+
+                        "https://discordapp.com/oauth2/authorize?client_id=229287955003473920&scope=bot&permissions=30720");
+            } catch (MissingPermissionsException | DiscordException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 
