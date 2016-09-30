@@ -14,10 +14,9 @@ public class RemBot {
         IDiscordClient Rem = getClient( getToken(), true);
             Rem.getDispatcher().registerListener(new RemListener());
     } catch (DiscordException e) {
-
+        System.out.println("SHIT DOESNT WORK");
     }
-        AFKcommand.loadList();
-        fileStorage.storage();
+
     }
 
     public static IDiscordClient getClient(String token, boolean login) throws DiscordException { // Returns an instance of the Discord client
@@ -31,6 +30,8 @@ public class RemBot {
 
 
     }
+
+
 
     private static String getToken(){
         File tokenFile = new File("config/token");

@@ -4,7 +4,6 @@ import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.RequestBuffer;
 
 import java.io.IOException;
@@ -21,11 +20,18 @@ import java.io.IOException;
 
 public class RemListener {
 
+    private static String pre;
+
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) { // This method is called when the ReadyEvent is dispatched
+        System.out.println("BOT READY!");
+        AFKcommand.loadList();
+        fileStorage.storage();
+        whitelist.load();
+
 
     }
-    @EventSubscriber
+    //@EventSubscriber
     public void onMessageReceivedEvent(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
 
     }
@@ -36,10 +42,10 @@ public class RemListener {
             return;
         }
         String msg = event.getMessage().getContent();
-        String pre = "+";
+        pre = ";";
         String[] msgL = msg.split("\\s");
         if(msgL[0].startsWith(pre)) {
-            switch (msgL[0].substring(pre.length())) {
+            switch (msgL[0].substring(pre.length()).toLowerCase()) {
                 case "ping":
                     ping(event);
                     break;
@@ -60,9 +66,21 @@ public class RemListener {
                 case"purge":
                     purge.purge(event);
                     break;
-
+                case"wh":
+                    whitelist.addWhite(event);
+                    break;
+                case"rmwh":
+                    whitelist.rmWhite(event);
+                    break;
+                case"help":
+                case"h":
+                    help.help(event);
+                    break;
+                case"system":
+                    system.sysInfo(event);
+                    break;
                 default:
-                    wrongCommand(event);
+                    //wrongCommand(event);
                     break;
 
             }
@@ -79,19 +97,20 @@ public class RemListener {
             }
         }*/
     }
+
+
+
     @EventSubscriber
     public void afkCheck(MessageReceivedEvent event){
         if(event.getMessage().getMentions().toString().length() > 2) {
             if (AFKcommand.checkAFK(event.getMessage().getMentions().toString(), event.getMessage().getGuild().getID())) {
+                RequestBuffer.request(()->{
                 try {
                     event.getMessage().getChannel().sendMessage("Mentioned User is AFK");
-                } catch (MissingPermissionsException e) {
-                    e.printStackTrace();
-                } catch (RateLimitException e) {
-                    e.printStackTrace();
-                } catch (DiscordException e) {
+                } catch (MissingPermissionsException |DiscordException  e) {
                     e.printStackTrace();
                 }
+                });
             }
         } else {
             return;
@@ -103,11 +122,7 @@ public class RemListener {
         RequestBuffer.request(() ->{
             try {
                 event.getMessage().getChannel().sendFile(fileStorage.coinFiles.get(picToSend));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (MissingPermissionsException e) {
-                e.printStackTrace();
-            } catch (DiscordException e) {
+            } catch (MissingPermissionsException |DiscordException|IOException e) {
                 e.printStackTrace();
             }
         });
@@ -118,11 +133,7 @@ public class RemListener {
             try {
                 event.getMessage().getChannel().sendFile(fileStorage.morningRem);
                 event.getMessage().reply("Good Morning");
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (MissingPermissionsException e) {
-                e.printStackTrace();
-            } catch (DiscordException e) {
+            } catch (MissingPermissionsException |DiscordException| IOException e) {
                 e.printStackTrace();
             }
         });
@@ -134,13 +145,7 @@ public class RemListener {
         RequestBuffer.request(() -> {
             try {
                 event.getMessage().getChannel().sendFile(fileStorage.remFiles.get(picToSend));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (MissingPermissionsException e) {
-                e.printStackTrace();
-            } catch (RateLimitException e) {
-                e.printStackTrace();
-            } catch (DiscordException e) {
+            } catch (MissingPermissionsException |DiscordException | IOException e) {
                 e.printStackTrace();
             }
         });
@@ -155,27 +160,26 @@ public class RemListener {
                      IMessage message = event.getMessage().getChannel().sendMessage("Pong!");
 
                      message.edit(message.getContent() + " (" + ((System.nanoTime() - startTime) / 1000000) + "ms RTT) :ping_pong: ");
-                } catch (MissingPermissionsException e) {
-                    e.printStackTrace();
-                } catch (RateLimitException e) {
-                    e.printStackTrace();
-                } catch (DiscordException e) {
+                } catch (MissingPermissionsException |DiscordException e) {
                     e.printStackTrace();
                 }
             });
 
     }
 
+
     public void wrongCommand(MessageReceivedEvent event){
         RequestBuffer.request(()->{
             try {
                 event.getMessage().getChannel().sendMessage("Error; Command Unknown.");
-            } catch (MissingPermissionsException e) {
-                e.printStackTrace();
-            } catch (DiscordException e) {
+            } catch (MissingPermissionsException |DiscordException e) {
                 e.printStackTrace();
             }
         });
+    }
+
+    public static String getPre(){
+        return pre;
     }
 
 }

@@ -2,7 +2,6 @@ import org.apache.commons.io.FileUtils;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
 import sx.blah.discord.util.RequestBuffer;
 
 import java.io.File;
@@ -68,18 +67,11 @@ public class AFKcommand {
         System.out.println("TEMP: " + tempComp);
         if(!comID.contains(tempComp)){
             comID.add(clientID + ";" + serverID);
-            System.out.println("COMBINED: " + comID.get(0));
             RequestBuffer.request(() -> {
                 try {
                     event.getMessage().getChannel().sendMessage("You are set AFK");
                     FileUtils.writeLines(afkList, comID);
-                } catch (MissingPermissionsException e) {
-                    e.printStackTrace();
-                } catch (RateLimitException e) {
-                    e.printStackTrace();
-                } catch (DiscordException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (MissingPermissionsException |DiscordException|IOException e) {
                     e.printStackTrace();
                 }
             });
@@ -89,13 +81,7 @@ public class AFKcommand {
                 try {
                     event.getMessage().getChannel().sendMessage("You are no longer AFK");
                     FileUtils.writeLines(afkList, comID);
-                } catch (MissingPermissionsException e) {
-                    e.printStackTrace();
-                } catch (RateLimitException e) {
-                    e.printStackTrace();
-                } catch (DiscordException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (MissingPermissionsException | DiscordException | IOException e) {
                     e.printStackTrace();
                 }
             });
@@ -142,9 +128,10 @@ public class AFKcommand {
 
     public static String createID(String xMention){
         String mention2 = xMention;
-        int length = xMention.length()-2;
+        //int length = xMention.length()-2;
         System.out.println("STRING: " + mention2);
-        mention2 = xMention.substring(4,length);
+        //mention2 = xMention.substring(4,length);
+        mention2=mention2.replaceAll("[^0-9]+", "");
         return mention2;
     }
 }
