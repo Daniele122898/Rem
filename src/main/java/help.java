@@ -19,7 +19,7 @@ public class help {
                 event.getMessage().getChannel().sendMessage(
                                 ":information_source: Commands " + "```" +
                                 "ping     rem     morning     afk     flip     purge     rmwh\n\n" +
-                                "wh      system      about   invite   help     git\n\n" +
+                                "wh      system      about   invite   help     git       re\n\n" +
                                 "```" +
                          "**h <command>:**  gives further information about the command"
                         );
@@ -31,6 +31,20 @@ public class help {
         }else{
             //TODO
             switch(msg[1].toLowerCase()) {
+                case"re":
+                    try {
+                        event.getMessage().getChannel().sendMessage(
+                                ":information_source: Commands > wh ```" +
+                                        RemListener.getPre()+"wh <mention>\n\n"+
+                                        "ParameterType: None\n\n" +
+                                        "Premissions needed: None\n\n" +
+                                        "Stars or resumes the story of Re:Zero\n" +
+                                        "```"
+                        );
+                    } catch (MissingPermissionsException |RateLimitException |DiscordException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 case"wh":
                     try {
                         event.getMessage().getChannel().sendMessage(
@@ -151,10 +165,12 @@ public class help {
                     }
                     break;
                 case"system":
+                case"sys":
                     try {
                         event.getMessage().getChannel().sendMessage(
                                 ":information_source: Commands > system ```" +
-                                        RemListener.getPre()+"system \n\n"+
+                                        RemListener.getPre()+"system \n"+
+                                        RemListener.getPre()+"sys \n\n"+
                                         "ParameterType: None\n\n" +
                                         "Premissions needed: none\n\n" +
                                         "Total Allocated Ram = Total Heap size\n" +
@@ -175,7 +191,8 @@ public class help {
                     try {
                         event.getMessage().getChannel().sendMessage(
                                 ":information_source: Commands > about ```" +
-                                        RemListener.getPre()+"h about \n\n"+
+                                        RemListener.getPre()+"h about \n"+
+                                        RemListener.getPre()+"help about \n\n"+
                                         "A huge thanks to:\n\n" +
                                         "0xFADED\n" +
                                         "Igloo\n" +

@@ -42,21 +42,17 @@ And lastly the max usable ram is the maximum amount of ram your JVM may EVER use
         RequestBuffer.request(()->{
         try {
             event.getMessage().getChannel().sendMessage(
-                    ":information_source: System Info ```\n" +
-                            "----------------------------------------------------\n" +
-                            "Ram Allocation\n" +
-                            "----------------------------------------------------\n\n" +
+                    ":floppy_disk: Ram Allocation ```\n" +
                             "Total Allocated Ram: " + totalRam+ " mb\n" +
                             "Used allocated Ram:  " + allocatedRamUse+ " mb\n" +
                             "Free allocated Ram:  " + allocatedRam+ " mb\n" +
                             "Max. usable Ram:     " + maxRam+ " mb\n\n" +
-                            "----------------------------------------------------\n" +
-                            "Connections\n" +
-                            "----------------------------------------------------\n\n" +
+                            "```" +
+                            ":satellite: Connections\n" +
+                            "```" +
                             "Connected Servers: " + RemListener.getServers() + "\n" +
                             "Watching Channels: "+ RemListener.getChannels() + "\n" +
                             "Users with access: " + RemListener.getUsers() + "\n\n" +
-                            "----------------------------------------------------\n\n" +
                             "```"
             );
         } catch (MissingPermissionsException|DiscordException  e) {

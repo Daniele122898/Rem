@@ -118,6 +118,7 @@ public class RemListener {
                     help.help(event);
                     break;
                 case"system":
+                case"sys":
                     system.sysInfo(event);
                     break;
                 case"git":
@@ -127,6 +128,12 @@ public class RemListener {
                 case"invite":
                 case"inv":
                     invBot(event);
+                    break;
+                case"re":
+                    ReZero.initialize(event);
+                    break;
+                case"ak":
+                    testAttk.start(event);
                     break;
                 default:
                     //wrongCommand(event);
