@@ -27,7 +27,7 @@ import java.util.List;
  afkServer.Add(UserID);
  await e.Channel.SendMessage("You are set AFK");
  string save = "config/afklist.txt";
- StreamWriter file = new System.IO.StreamWriter(save);
+ StreamWriter file = new SystemRem.IO.StreamWriter(save);
  afkServer.ForEach(file.WriteLine);
  file.Close();
  Console.WriteLine("Succesfully Saved AKFList!");
@@ -37,7 +37,7 @@ import java.util.List;
  afkServer.Remove(UserID);
  await e.Channel.SendMessage("You are no longer AFK");
  string save = "config/afklist.txt";
- StreamWriter file = new System.IO.StreamWriter(save);
+ StreamWriter file = new SystemRem.IO.StreamWriter(save);
  afkServer.ForEach(file.WriteLine);
  file.Close();
  Console.WriteLine("Succesfully Saved AFKList!");
@@ -64,7 +64,6 @@ public class AFKcommand {
         String clientID = event.getMessage().getAuthor().getID();
         String serverID = event.getMessage().getGuild().getID();
         String tempComp = clientID + ";" + serverID;
-        System.out.println("TEMP: " + tempComp);
         if(!comID.contains(tempComp)){
             comID.add(clientID + ";" + serverID);
             RequestBuffer.request(() -> {
@@ -94,10 +93,6 @@ public class AFKcommand {
         for(int i=0; i< comID.size(); i++){
             String temp = comID.get(i);
             String[] parts = temp.split(";");
-            System.out.println("part1: " + parts[0]);
-            System.out.println("part2: "+parts[1]);
-            System.out.println("ID1: " + ID);
-            System.out.println("SID2: " + ServerID);
             if(parts[0].equals(ID) && parts[1].equals(ServerID)){
                 System.out.println("TRUE");
                 return true;

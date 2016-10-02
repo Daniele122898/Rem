@@ -1,6 +1,6 @@
 config/token
 config/afklist
-config/whitelist
+config/Whitelist
 RemBot.iml
 
 ### Intellij+iml ###

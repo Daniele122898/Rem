@@ -7,7 +7,7 @@ import sx.blah.discord.util.RequestBuffer;
 /**
  * Created by Daniele on 29.09.2016.
  */
-public class help {
+public class Help {
 
 
     public static void help(MessageReceivedEvent event){
@@ -18,8 +18,8 @@ public class help {
             try {
                 event.getMessage().getChannel().sendMessage(
                                 ":information_source: Commands " + "```" +
-                                "ping     rem     morning     afk     flip     purge     rmwh\n\n" +
-                                "wh      system      about   invite   help     git       re\n\n" +
+                                "ping     rem     morning     afk     flip     Purge     rmwh\n\n" +
+                                "wh      SystemRem      about   invite   Help     git       re\n\n" +
                                 "```" +
                          "**h <command>:**  gives further information about the command"
                         );
@@ -53,7 +53,7 @@ public class help {
                                         "ParameterType: Required\n\n" +
                                         "Parameter: Mention of the user that should get Whitelisted\n\n" +
                                         "Premissions needed: ServerOwner status or on the Whitelist\n\n" +
-                                        "The user added on the Whitelist can add or remove other people aswell as use administrative commands; purge etc\n" +
+                                        "The user added on the Whitelist can add or remove other people aswell as use administrative commands; Purge etc\n" +
                                         "```"
                         );
                     } catch (MissingPermissionsException |RateLimitException |DiscordException e) {
@@ -82,7 +82,7 @@ public class help {
                                         "ParameterType: None\n\n" +
                                         "Premissions needed: none\n\n" +
                                         "Will post random pictures of Rem that are stored in the Bot's database.\n\n" +
-                                        "Current Databse: " + fileStorage.remPics.length +
+                                        "Current Databse: " + FileStorage.remPics.length +
                                         "```"
                         );
                     } catch (MissingPermissionsException |RateLimitException |DiscordException e) {
@@ -133,11 +133,11 @@ public class help {
                         e.printStackTrace();
                     }
                     break;
-                case"purge":
+                case"Purge":
                     try {
                         event.getMessage().getChannel().sendMessage(
-                                ":information_source: Commands > purge ```" +
-                                        RemListener.getPre()+"purge <n>\n\n"+
+                                ":information_source: Commands > Purge ```" +
+                                        RemListener.getPre()+"Purge <n>\n\n"+
                                         "ParameterType: Required\n\n" +
                                         "Parameter: Number of Messages to delete\n\n" +
                                         "Premissions needed: ServerOwner status or on the Whitelist\n\n" +
@@ -164,12 +164,12 @@ public class help {
                         e.printStackTrace();
                     }
                     break;
-                case"system":
+                case"SystemRem":
                 case"sys":
                     try {
                         event.getMessage().getChannel().sendMessage(
-                                ":information_source: Commands > system ```" +
-                                        RemListener.getPre()+"system \n"+
+                                ":information_source: Commands > SystemRem ```" +
+                                        RemListener.getPre()+"SystemRem \n"+
                                         RemListener.getPre()+"sys \n\n"+
                                         "ParameterType: None\n\n" +
                                         "Premissions needed: none\n\n" +
@@ -192,7 +192,7 @@ public class help {
                         event.getMessage().getChannel().sendMessage(
                                 ":information_source: Commands > about ```" +
                                         RemListener.getPre()+"h about \n"+
-                                        RemListener.getPre()+"help about \n\n"+
+                                        RemListener.getPre()+"Help about \n\n"+
                                         "A huge thanks to:\n\n" +
                                         "0xFADED\n" +
                                         "Igloo\n" +

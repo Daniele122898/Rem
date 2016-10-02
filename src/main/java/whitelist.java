@@ -17,10 +17,10 @@ import java.util.List;
  if(msg[1].matches("\\d+")) {
  toDel = Integer.parseInt(msg[1]);
  */
-public class whitelist {
+public class Whitelist {
 
     private static List<String> whiteID = new ArrayList<String>();
-    static File whiteList = new File("config/whitelist");
+    static File whiteList = new File("config/Whitelist");
 
     public static void addWhite(MessageReceivedEvent event){
         String[] msg = event.getMessage().toString().split("\\s");//splits space
@@ -61,7 +61,7 @@ public class whitelist {
         }else{
             RequestBuffer.request(() ->{
             try {
-                event.getMessage().getChannel().sendMessage("You have to Mention the user you wish to whitelist!");
+                event.getMessage().getChannel().sendMessage("You have to Mention the user you wish to Whitelist!");
 
             } catch (MissingPermissionsException |DiscordException e) {
                 e.printStackTrace();
@@ -141,7 +141,7 @@ public class whitelist {
     public static String createID(String xMention){
         String mention2 = xMention;
         //int length = xMention.length()-1;
-        //System.out.println("STRING: " + mention2);
+        //SystemRem.out.println("STRING: " + mention2);
         //mention2 = xMention.substring(2,length);
         mention2=mention2.replaceAll("[^0-9]+", "");
         System.out.println("CREATED ID: " + mention2);

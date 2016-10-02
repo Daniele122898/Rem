@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class fileStorage {
+public class FileStorage {
     public static String[] remPics;
     public static String[] coinPics;
     public static List<File> remFiles = new ArrayList<>();
@@ -28,11 +28,11 @@ List<File>
 //old
 for (int i = 0; i < stringList.size(); i++) {
   String element = stringList.get(i);
-  System.out.println(element);
+  SystemRem.out.println(element);
 }
 //new
 for (String element : stringList) {
-  System.out.println(element);
+  SystemRem.out.println(element);
 }
 
 

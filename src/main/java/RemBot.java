@@ -1,3 +1,5 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.util.DiscordException;
@@ -9,6 +11,8 @@ import java.nio.file.Files;
 
 public class RemBot {
 
+    public static final Logger LOGGER = LoggerFactory.getLogger(RemBot.class);
+
     public static void main(String[] args){ // throws DiscordException
         try{
         IDiscordClient Rem = getClient( getToken(), true);
@@ -16,6 +20,8 @@ public class RemBot {
     } catch (DiscordException e) {
         System.out.println("SHIT DOESNT WORK");
     }
+
+
 
     }
 

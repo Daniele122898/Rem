@@ -24,14 +24,14 @@ import java.util.stream.Collectors;
  await e.Channel.DeleteMessages(messagesToDelete);
  }
  */
-public class purge {
+public class Purge {
 
     public static void purge(MessageReceivedEvent event){
         List<IMessage> msgDel2 = new ArrayList<IMessage>();
         int toDel = 0;
         String[] msg = event.getMessage().toString().split("\\s");
         if(msg[1].matches("\\d+")) {
-            if(whitelist.checkWh(event)) {
+            if(Whitelist.checkWh(event)) {
                 toDel = Integer.parseInt(msg[1]);
                 if (toDel > 100) {
                     toDel = 100;

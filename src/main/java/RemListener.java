@@ -6,7 +6,10 @@ import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
 
+
 import java.io.IOException;
+import java.lang.*;
+import java.lang.System;
 import java.util.concurrent.atomic.AtomicInteger;
 /* TODO
 
@@ -19,13 +22,15 @@ public class RemListener {
     private static AtomicInteger channels = new AtomicInteger(0);
     private static AtomicInteger users = new AtomicInteger(0);
     private static int servers;
+    private Attk AttkM = new Attk();
+    private ReZero reZero = new ReZero();
 
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) { // This method is called when the ReadyEvent is dispatched
         System.out.println("BOT READY!");
         AFKcommand.loadList();
-        fileStorage.storage();
-        whitelist.load();
+        FileStorage.storage();
+        Whitelist.load();
 
 
 
@@ -55,8 +60,8 @@ public class RemListener {
          */
 
         System.out.println("Servers: " + servers);
-        //System.out.println("Channels: " + channels[0]);
-        //System.out.println("Users: " + users[0]);
+        //SystemRem.out.println("Channels: " + channels[0]);
+        //SystemRem.out.println("Users: " + users[0]);
         System.out.println("Channles: " + channels.get());
         System.out.println("Users: " + users.get());
 
@@ -104,22 +109,22 @@ public class RemListener {
                 case"flip":
                     coinFlip(event);
                     break;
-                case"purge":
-                    purge.purge(event);
+                case"Purge":
+                    Purge.purge(event);
                     break;
                 case"wh":
-                    whitelist.addWhite(event);
+                    Whitelist.addWhite(event);
                     break;
                 case"rmwh":
-                    whitelist.rmWhite(event);
+                    Whitelist.rmWhite(event);
                     break;
-                case"help":
+                case"Help":
                 case"h":
-                    help.help(event);
+                    Help.help(event);
                     break;
-                case"system":
+                case"SystemRem":
                 case"sys":
-                    system.sysInfo(event);
+                    SystemRem.sysInfo(event);
                     break;
                 case"git":
                 case"github":
@@ -130,10 +135,10 @@ public class RemListener {
                     invBot(event);
                     break;
                 case"re":
-                    ReZero.initialize(event);
+                    reZero.initialize(event);
                     break;
                 case"ak":
-                    testAttk.start(event);
+                    AttkM.start(event);
                     break;
                 default:
                     //wrongCommand(event);
@@ -174,10 +179,10 @@ public class RemListener {
     }
 
     public void coinFlip(MessageReceivedEvent event){
-        int picToSend = RandomNumberGen.getRandint((fileStorage.coinPics.length));
+        int picToSend = RandomNumberGen.getRandint((FileStorage.coinPics.length));
         RequestBuffer.request(() ->{
             try {
-                event.getMessage().getChannel().sendFile(fileStorage.coinFiles.get(picToSend));
+                event.getMessage().getChannel().sendFile(FileStorage.coinFiles.get(picToSend));
             } catch (MissingPermissionsException |DiscordException|IOException e) {
                 e.printStackTrace();
             }
@@ -187,7 +192,7 @@ public class RemListener {
     public void remMorning(MessageReceivedEvent event){
         RequestBuffer.request(() ->{
             try {
-                event.getMessage().getChannel().sendFile(fileStorage.morningRem);
+                event.getMessage().getChannel().sendFile(FileStorage.morningRem);
                 event.getMessage().reply("Good Morning");
             } catch (MissingPermissionsException |DiscordException| IOException e) {
                 e.printStackTrace();
@@ -197,10 +202,10 @@ public class RemListener {
     }
 
     public void randomRem(MessageReceivedEvent event){
-        int picToSend = RandomNumberGen.getRandint(fileStorage.remPics.length);
+        int picToSend = RandomNumberGen.getRandint(FileStorage.remPics.length);
         RequestBuffer.request(() -> {
             try {
-                event.getMessage().getChannel().sendFile(fileStorage.remFiles.get(picToSend));
+                event.getMessage().getChannel().sendFile(FileStorage.remFiles.get(picToSend));
             } catch (MissingPermissionsException |DiscordException | IOException e) {
                 e.printStackTrace();
             }

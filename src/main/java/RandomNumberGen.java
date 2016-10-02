@@ -14,4 +14,8 @@ public class RandomNumberGen {
         return rand.nextInt(upperBound);
     }
 
+    public static int randomSign(){
+        return 1 | (rand.nextInt() >> 31);
+    }
+
 }
