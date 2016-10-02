@@ -32,6 +32,7 @@ public class RemListener {
         AFKcommand.loadList();
         FileStorage.storage();
         Whitelist.load();
+        AttkM.loadJason();
 
 
 
@@ -74,6 +75,7 @@ public class RemListener {
 
     @EventSubscriber
     public void switchMessage(MessageReceivedEvent event){
+        AttkM.updateJson();
         if(event.getMessage().getAuthor().isBot()) {
             return;
         }
@@ -141,6 +143,9 @@ public class RemListener {
                 case"ak":
                     AttkM.start(event);
                     break;
+                case"shutdown":
+                    shutdown(event);
+                    break;
                 default:
                     //wrongCommand(event);
                     break;
@@ -176,6 +181,28 @@ public class RemListener {
             }
         } else {
             return;
+        }
+    }
+
+    private void shutdown(MessageReceivedEvent e){
+        if(e.getMessage().getAuthor().getID().equals("192750776005689344")) {
+            RequestBuffer.request(() -> {
+                try {
+                    e.getMessage().getChannel().sendMessage("I wanted to leave anyway :information_desk_person: ");
+                } catch (MissingPermissionsException | DiscordException e1) {
+                    e1.printStackTrace();
+                }
+            });
+            AttkM.saveToJason();
+            System.exit(1);
+        } else{
+            RequestBuffer.request(() -> {
+                try {
+                    e.getMessage().getChannel().sendMessage("Only Daddy can turn me off");
+                } catch (MissingPermissionsException | DiscordException e1) {
+                    e1.printStackTrace();
+                }
+            });
         }
     }
 

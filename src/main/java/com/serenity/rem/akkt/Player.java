@@ -15,20 +15,17 @@ public class Player {
     private double attackdmg;
     private double def;
     private double EXP;
-    private MessageReceivedEvent event;
+    private transient MessageReceivedEvent event;
     Enemy e;
     private boolean onAdv;
     private boolean idle;
-    String[] msg;
+    transient String[] msg;
     private boolean alive;
     private Inventory inv;
-    private IMessage Mess;
+    private transient IMessage Mess;
     private int skillPoints;
     private double skillHp;
-    private long cooldown;
-
-                        //mHP,attackdmg, def
-    private int[] scale = {1 ,13, 12};
+    private transient long cooldown;
 
 
     public static String[] itemL= new String[] {
@@ -50,8 +47,28 @@ public class Player {
         idle = true;
         alive = true;
         inv = new Inventory();
-        inv.add(new Gold(this, itemL[0],50));
+        inv.add(new Gold(itemL[0],50));
         cooldown = System.currentTimeMillis();
+    }
+
+    //public Player(String ID, int level, double hp, double attackdmg, double def, double maxHP, double EXP, boolean onAdv, boolean isAlive, Inventory inv, int skillPoints, double skillHp){
+    //}
+    public Player(PlayerPOJO pojo ){
+        this.hp = pojo.hp;
+        this.maxHP = pojo.maxHP;
+        this.ID = pojo.ID;
+        this.level = pojo.level;
+        this.maxHP = pojo.maxHP;
+        this.attackdmg = pojo.attackdmg;
+        this.def = pojo.def;
+        this.EXP = pojo.EXP;
+        this.onAdv = pojo.onAdv;
+        this.alive = pojo.alive;
+        this.inv = pojo.inv;
+        this.idle = pojo.idle;
+        this.skillHp = pojo.skillHp;
+        this.e = pojo.e;
+        this.skillPoints = pojo.skillPoints;
     }
 
     public void addItem(Item item){
@@ -467,7 +484,7 @@ public class Player {
         if(msg.length == 3) {
             if (inv.get(0).amount >= 10) {
                 if (inv.get("Health Potion") == null) {
-                    inv.add(new RedPot(this, itemL[1], 1));
+                    inv.add(new RedPot(itemL[1], 1));
                 } else {
                     inv.get("Health Potion").addAmount(1);
                 }
@@ -493,7 +510,7 @@ public class Player {
             if(msg[3].matches("\\d+")){
                 if (inv.get(0).amount >= 10 * Integer.parseInt(msg[3])) {
                     if (inv.get("Health Potion") == null) {
-                        inv.add(new RedPot(this, itemL[1], Integer.parseInt(msg[3])));
+                        inv.add(new RedPot(itemL[1], Integer.parseInt(msg[3])));
                     } else {
                         inv.get("Health Potion").addAmount(Integer.parseInt(msg[3]));
                     }
@@ -731,7 +748,7 @@ public class Player {
         onAdv = false;
         idle = true;
         inv = new Inventory();
-        inv.add(new Gold(this, itemL[0],50));
+        inv.add(new Gold(itemL[0],50));
     }
 
     private void found(){
@@ -809,5 +826,24 @@ public class Player {
     public boolean getAdv(){ return onAdv;}
     public boolean getIdle(){ return idle;}
     public long getCooldown(){return cooldown;}
+
+    public PlayerPOJO getAsPojo(){
+        PlayerPOJO pojo = new PlayerPOJO();
+        pojo.ID = ID;
+        pojo.level = level;
+        pojo.hp = hp;
+        pojo.maxHP = maxHP;
+        pojo.attackdmg = attackdmg;
+        pojo.def = def;
+        pojo.EXP = EXP;
+        pojo.e = e;
+        pojo.onAdv = onAdv;
+        pojo.idle = idle;
+        pojo.alive = alive;
+        pojo.inv = inv;
+        pojo.skillPoints = skillPoints;
+        pojo.skillHp = skillHp;
+        return pojo;
+    }
 
 }

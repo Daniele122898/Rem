@@ -1,12 +1,14 @@
 package com.serenity.rem.akkt;
 
 
+import com.google.gson.Gson;
 import com.serenity.rem.main.RemListener;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,10 @@ public class Attk {
 
     private static List<Player> Players = new ArrayList<Player>();
     private static String[] msg;
+    Gson gson = new Gson();
+    AllPlayersPOJO allplayers = new AllPlayersPOJO();
+    private long saveIntervall = 300000;
+    private long saveTime = System.currentTimeMillis() + saveIntervall;
 
 
     public void start(MessageReceivedEvent e){
@@ -84,6 +90,9 @@ public class Attk {
                     case"skill":
                         skillSystem(e);
                         break;
+                    case"save":
+                        saveToJason();
+                        break;
                     default:
                         RequestBuffer.request(()->{
                             try {
@@ -98,6 +107,16 @@ public class Attk {
 
 
         }
+    }
+
+    public void updateJson(){
+        if(System.currentTimeMillis() > saveTime){
+            saveToJason();
+            saveTime = System.currentTimeMillis() + saveIntervall;
+        } else{
+            return;
+        }
+
     }
 
     private void skillSystem(MessageReceivedEvent e){
@@ -185,9 +204,42 @@ public class Attk {
         }
     }
 
+    public void loadJason(){
+        try(Reader reader = new FileReader("config/players.json")){
+            AllPlayersPOJO pojo = gson.fromJson(reader, AllPlayersPOJO.class);
+            Players.clear();
+            for(int i=0; i < pojo.Players.size(); i++){
+                Player temp = new Player(pojo.Players.get(i));
+                Players.add(temp);
+            }
+
+            System.out.println("JSON READ: "+ Players);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("JASON FILE LOADED");
+    }
+
+    public void saveToJason(){
+        for(int i = 0; i < Players.size(); i++){
+            allplayers.Players.add(Players.get(i).getAsPojo());
+        }
+        String json = gson.toJson(allplayers);
+        System.out.println("JSON: " + json);
+        try(FileWriter writer = new FileWriter("config/players.json")){
+            gson.toJson(allplayers, writer);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        System.out.println("JASON FILE SAVED");
+    }
+
     private void createAcc(MessageReceivedEvent e){
         Player p = new Player(e.getMessage().getAuthor().getID(), 1, 50, 10, 0);
         Players.add(p);
+        saveToJason();
 
         RequestBuffer.request(()->{
         try {

@@ -4,26 +4,21 @@ public class Item {
 
 
     protected String name;
-    protected Player Player;
+    //protected Player Player;
     protected int amount;
-    protected Enemy enemy;
+    //protected Enemy enemy;
 
-    public Item(Player p, String name, int amount){
-        this.Player = p;
+    public Item(String name, int amount){
+        //this.Player = p;
         this.name = name;
         this.amount = amount;
     }
-    public Item(Enemy e, String name, int amount){
+    /*public Item(Enemy e, String name, int amount){
         this.enemy = e;
         this.name = name;
         this.amount = amount;
-    }
+    }*/
 
-    public void buy(){
-        System.out.println("BOUGHT A " + name);
-        Player.addItem(this);
-
-    }
 
     public void addAmount(int add){
         amount += add;

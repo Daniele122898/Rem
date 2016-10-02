@@ -1,4 +1,5 @@
 config/token
+config/token2
 config/afklist
 config/com.serenity.rem.modules.Whitelist
 com.serenity.rem.main.RemBot.iml

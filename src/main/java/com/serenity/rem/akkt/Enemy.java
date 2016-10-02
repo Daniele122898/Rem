@@ -28,7 +28,7 @@ public class Enemy {
     }
 
     private void generateInv(){
-        inv.add(new Gold(this, Player.itemL[0] , RandomNumberGen.getRandIntBetween(level * 2,level * 13)));
+        inv.add(new Gold(Player.itemL[0] , RandomNumberGen.getRandIntBetween(level * 2,level * 13)));
     }
 
     private int generateLvl(int plvl){

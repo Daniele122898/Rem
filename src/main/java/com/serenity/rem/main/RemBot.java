@@ -42,7 +42,7 @@ public class RemBot {
 
 
     private static String getToken(){
-        File tokenFile = new File("config/token");
+        File tokenFile = new File("config/token");//CHANGE FOR TEMP BOT TO token2
 
         if(!tokenFile.exists())
             System.exit(-1);
