@@ -1,7 +1,7 @@
 config/token
 config/afklist
-config/Whitelist
-RemBot.iml
+config/com.serenity.rem.modules.Whitelist
+com.serenity.rem.main.RemBot.iml
 
 ### Intellij+iml ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
@@ -53,7 +53,7 @@ fabric.properties
 # Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023 
 
 *.iml
-modules.xml
+com.serenity.rem.modules.xml
 .idea/misc.xml 
 *.ipr
 
@@ -108,6 +108,6 @@ fabric.properties
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
 # *.iml
-# modules.xml
+# com.serenity.rem.modules.xml
 # .idea/misc.xml 
 # *.ipr

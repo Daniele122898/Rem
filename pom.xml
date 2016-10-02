@@ -10,7 +10,7 @@
 
     <build>
         <defaultGoal>clean package install</defaultGoal>
-        <finalName>RemBot</finalName>
+        <finalName>com.serenity.rem.main.RemBot</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
@@ -45,7 +45,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>RemBot</mainClass>
+                            <mainClass>com.serenity.rem.main.RemBot</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
