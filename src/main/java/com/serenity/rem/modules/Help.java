@@ -21,8 +21,8 @@ public class Help {
             try {
                 event.getMessage().getChannel().sendMessage(
                                 ":information_source: Commands " + "```" +
-                                "ping     rem     morning     afk     flip     com.serenity.rem.modules.Purge     rmwh\n\n" +
-                                "wh      com.serenity.rem.modules.SystemRem      about   invite   com.serenity.rem.modules.Help     git       re\n\n" +
+                                "ping     rem     morning     afk     flip     Purge     rmwh\n\n" +
+                                "wh       sys     about       inv     help     git       re\n\n" +
                                 "```" +
                          "**h <command>:**  gives further information about the command"
                         );
@@ -55,8 +55,8 @@ public class Help {
                                         RemListener.getPre()+"wh <mention>\n\n"+
                                         "ParameterType: Required\n\n" +
                                         "Parameter: Mention of the user that should get Whitelisted\n\n" +
-                                        "Premissions needed: ServerOwner status or on the com.serenity.rem.modules.Whitelist\n\n" +
-                                        "The user added on the com.serenity.rem.modules.Whitelist can add or remove other people aswell as use administrative commands; com.serenity.rem.modules.Purge etc\n" +
+                                        "Premissions needed: ServerOwner status or on the Whitelist\n\n" +
+                                        "The user added on the com.serenity.rem.modules.Whitelist can add or remove other people aswell as use administrative commands; Purge etc\n" +
                                         "```"
                         );
                     } catch (MissingPermissionsException |RateLimitException |DiscordException e) {
@@ -136,14 +136,14 @@ public class Help {
                         e.printStackTrace();
                     }
                     break;
-                case"com.serenity.rem.modules.Purge":
+                case"purge":
                     try {
                         event.getMessage().getChannel().sendMessage(
-                                ":information_source: Commands > com.serenity.rem.modules.Purge ```" +
-                                        RemListener.getPre()+"com.serenity.rem.modules.Purge <n>\n\n"+
+                                ":information_source: Commands > Purge ```" +
+                                        RemListener.getPre()+"Purge <n>\n\n"+
                                         "ParameterType: Required\n\n" +
                                         "Parameter: Number of Messages to delete\n\n" +
-                                        "Premissions needed: ServerOwner status or on the com.serenity.rem.modules.Whitelist\n\n" +
+                                        "Premissions needed: ServerOwner status or on the Whitelist\n\n" +
                                         "Will delete n messages in the current Channel.\n" +
                                         "100 is the maximum at once otherwise the Bot would get RateLimited\n" +
                                         "```"
@@ -159,20 +159,20 @@ public class Help {
                                         RemListener.getPre()+"rmwh <mention>\n\n"+
                                         "ParameterType: Required\n\n" +
                                         "Parameter: Mention of the user that should get removed\n\n" +
-                                        "Premissions needed: ServerOwner status or on the com.serenity.rem.modules.Whitelist\n\n" +
-                                        "The mentioned user will get deleted from the com.serenity.rem.modules.Whitelist, loosing his RemPermissions\n" +
+                                        "Premissions needed: ServerOwner status or on the Whitelist\n\n" +
+                                        "The mentioned user will get deleted from the Whitelist, loosing his RemPermissions\n" +
                                         "```"
                         );
                     } catch (MissingPermissionsException |RateLimitException |DiscordException e) {
                         e.printStackTrace();
                     }
                     break;
-                case"com.serenity.rem.modules.SystemRem":
+                case"system":
                 case"sys":
                     try {
                         event.getMessage().getChannel().sendMessage(
-                                ":information_source: Commands > com.serenity.rem.modules.SystemRem ```" +
-                                        RemListener.getPre()+"com.serenity.rem.modules.SystemRem \n"+
+                                ":information_source: Commands > System```" +
+                                        RemListener.getPre()+"System \n"+
                                         RemListener.getPre()+"sys \n\n"+
                                         "ParameterType: None\n\n" +
                                         "Premissions needed: none\n\n" +
@@ -195,7 +195,7 @@ public class Help {
                         event.getMessage().getChannel().sendMessage(
                                 ":information_source: Commands > about ```" +
                                         RemListener.getPre()+"h about \n"+
-                                        RemListener.getPre()+"com.serenity.rem.modules.Help about \n\n"+
+                                        RemListener.getPre()+"Help about \n\n"+
                                         "A huge thanks to:\n\n" +
                                         "0xFADED\n" +
                                         "Igloo\n" +
