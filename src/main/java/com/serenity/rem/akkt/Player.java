@@ -117,9 +117,9 @@ public class Player {
                             "Def: " + def + "\n" +
                             "Skill Points: " + skillPoints + "\n\n" +
                             "#Choose Skills: \n" +
-                            RemListener.getPre()+"ak skill hp for increased max HP\n" +
-                            RemListener.getPre()+"ak skill def for increased Defense stats\n" +
-                            RemListener.getPre()+"ak skill dmg for increased Attack dmg\n" +
+                            RemListener.getPre()+"ak skill hp (amount) for increased max HP\n" +
+                            RemListener.getPre()+"ak skill def (amount) for increased Defense stats\n" +
+                            RemListener.getPre()+"ak skill dmg (amount) for increased Attack dmg\n" +
                             "```");
                 } catch (MissingPermissionsException |DiscordException e1) {
                     e1.printStackTrace();
@@ -662,12 +662,36 @@ public class Player {
 
     }
 
+    public void work(MessageReceivedEvent ev){
+        event = ev;
+        if(checkCooldown()){
+            inv.get(0).addAmount(40);
+            cooldown = System.currentTimeMillis()+ 300000;
+            RequestBuffer.request(()->{
+                try {
+                    event.getMessage().getChannel().sendMessage(":gem: :pick: :sweat:");
+                } catch (MissingPermissionsException | DiscordException e1) {
+                    e1.printStackTrace();
+                }
+            });
+        } else {
+            notCool(ev);
+        }
+    }
+
     public void flee(MessageReceivedEvent ev){
         event = ev;
         int rand = RandomNumberGen.getRandint(100);
         if(rand < 65){
             onAdv = false;
             idle = true;
+            RequestBuffer.request(()->{
+                try {
+                    event.getMessage().getChannel().sendMessage(":runner:");
+                } catch (MissingPermissionsException | DiscordException e1) {
+                    e1.printStackTrace();
+                }
+            });
         }else{
             double dmg = e.attack(0);
             double realDmg = dmg - (def/2);
@@ -684,6 +708,22 @@ public class Player {
 
         }
         setCooldown();
+    }
+
+    public void rest(MessageReceivedEvent ev){
+        event = ev;
+        cooldown = System.currentTimeMillis() + 150000;
+        hp += level * 15;
+        if(hp > maxHP){
+            hp = maxHP;
+        }
+        RequestBuffer.request(()->{
+            try {
+                event.getMessage().getChannel().sendMessage(":sleeping:");
+            } catch (MissingPermissionsException | DiscordException e1) {
+                e1.printStackTrace();
+            }
+        });
     }
     private void victory(){
         //TODO
@@ -767,8 +807,9 @@ public class Player {
                         "Attack Damage: " + attackdmg+ "\n"+
                         "Defense:       " + def + "\n\n"+
                         "#What will you do?\n" +
-                        "1. Fight\n" +
-                        "2. Run away\n" +
+                        RemListener.getPre()+"ak 1. Fight\n" +
+                        RemListener.getPre()+"ak 2. Run away\n" +
+                        RemListener.getPre()+"ak 3. Rest\n" +
                         "```"
                 );
             } catch (MissingPermissionsException | DiscordException e1) {
@@ -795,8 +836,9 @@ public class Player {
                         "Attack Damage: " + attackdmg+ "\n"+
                         "Defense:       " + def + "\n\n"+
                         "#What will you do?\n" +
-                        "1. Fight\n" +
-                        "2. Run away\n" +
+                        RemListener.getPre()+"ak 1. Fight\n" +
+                        RemListener.getPre()+"ak 2. Run away\n" +
+                        RemListener.getPre()+"ak 3. Rest\n" +
                         "```"
                 );
             } catch (MissingPermissionsException | DiscordException e1) {

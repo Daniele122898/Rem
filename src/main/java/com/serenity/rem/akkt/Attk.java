@@ -3,6 +3,7 @@ package com.serenity.rem.akkt;
 
 import com.google.gson.Gson;
 import com.serenity.rem.main.RemListener;
+import com.serenity.rem.modules.Help;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
@@ -24,6 +25,7 @@ public class Attk {
     AllPlayersPOJO allplayers = new AllPlayersPOJO();
     private long saveIntervall = 300000;
     private long saveTime = System.currentTimeMillis() + saveIntervall;
+    int loadcount = 0;
 
 
     public void start(MessageReceivedEvent e){
@@ -58,6 +60,14 @@ public class Attk {
                     case"stats":
                         printStats(e);
                         break;
+                    case" help":
+                    case"h":
+                        Help.akHelpMsg(e);
+                        break;
+                    case"rest":
+                    case"3":
+                        rest(e);
+                        break;
                     default:
                         RequestBuffer.request(()->{
                             try {
@@ -72,6 +82,12 @@ public class Attk {
                 switch(msg[1].toLowerCase()){
                     case"stats":
                         printStats(e);
+                        break;
+                    case"work":
+                        work(e);
+                        break;
+                    case"count":
+                        countPlayers(e);
                         break;
                     case"adv":
                         adventure(e);
@@ -90,6 +106,10 @@ public class Attk {
                     case"skill":
                         skillSystem(e);
                         break;
+                    case"help":
+                    case"h":
+                        Help.akHelpMsg(e);
+                        break;
                     case"save":
                         saveToJason();
                         break;
@@ -107,6 +127,16 @@ public class Attk {
 
 
         }
+    }
+
+    private void countPlayers(MessageReceivedEvent e){
+        RequestBuffer.request(()->{
+            try {
+                e.getMessage().getChannel().sendMessage("There are currently " + Players.size() + " registered users for the RPG!");
+            } catch (MissingPermissionsException | DiscordException e1) {
+                e1.printStackTrace();
+            }
+        });
     }
 
     public void updateJson(){
@@ -158,6 +188,29 @@ public class Attk {
             }
         }
     }
+
+    private void work(MessageReceivedEvent e){
+        for(Player p : Players){
+            if(p.getID().equals(e.getMessage().getAuthor().getID())) {
+                if(p.checkCooldown()) {
+                    p.work(e);
+                } else{
+                    p.notCool(e);
+                }
+                break;
+            }
+        }
+    }
+
+    private void rest(MessageReceivedEvent e){
+        for(Player p : Players){
+            if(p.getID().equals(e.getMessage().getAuthor().getID())) {
+                    p.rest(e);
+                break;
+            }
+        }
+    }
+
     private void flee(MessageReceivedEvent e){
         for(Player p : Players){
             if(p.getID().equals(e.getMessage().getAuthor().getID())) {
@@ -220,34 +273,44 @@ public class Attk {
             e.printStackTrace();
         }
         System.out.println("JASON FILE LOADED");
+        loadcount++;
     }
 
     public void saveToJason(){
-        for(int i = 0; i < Players.size(); i++){
-            allplayers.Players.add(Players.get(i).getAsPojo());
+        if(loadcount>0) {
+            allplayers.Players.clear();
+            for (int i = 0; i < Players.size(); i++) {
+                allplayers.Players.add(Players.get(i).getAsPojo());
+            }
+            String json = gson.toJson(allplayers);
+            System.out.println("JSON: " + json);
+            try (FileWriter writer = new FileWriter("config/players.json")) {
+                gson.toJson(allplayers, writer);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            System.out.println("JASON FILE SAVED");
+        } else{
+            System.out.println("NOT LOADED YET!");
         }
-        String json = gson.toJson(allplayers);
-        System.out.println("JSON: " + json);
-        try(FileWriter writer = new FileWriter("config/players.json")){
-            gson.toJson(allplayers, writer);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        System.out.println("JASON FILE SAVED");
     }
 
     private void createAcc(MessageReceivedEvent e){
-        Player p = new Player(e.getMessage().getAuthor().getID(), 1, 50, 10, 0);
-        Players.add(p);
-        saveToJason();
+        if(loadcount>0) {
+            Player p = new Player(e.getMessage().getAuthor().getID(), 1, 50, 10, 0);
+            Players.add(p);
+            saveToJason();
 
-        RequestBuffer.request(()->{
-        try {
-            e.getMessage().getChannel().sendMessage("**Account has been created!**");
-        } catch (MissingPermissionsException | DiscordException e1) {
-            e1.printStackTrace();
+            RequestBuffer.request(() -> {
+                try {
+                    e.getMessage().getChannel().sendMessage("**Account has been created!**");
+                } catch (MissingPermissionsException | DiscordException e1) {
+                    e1.printStackTrace();
+                }
+            });
+        }else{
+            System.out.println("NOT LOADED YET!");
         }
-        });
     }
 
     private void printStats(MessageReceivedEvent e){

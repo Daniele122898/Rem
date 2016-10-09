@@ -20,10 +20,7 @@ public class RemBot {
         IDiscordClient Rem = getClient( getToken(), true);
             Rem.getDispatcher().registerListener(new RemListener());
     } catch (DiscordException e) {
-        System.out.println("SHIT DOESNT WORK");
     }
-
-
 
     }
 

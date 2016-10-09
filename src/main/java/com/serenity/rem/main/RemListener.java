@@ -79,7 +79,7 @@ public class RemListener {
         if(event.getMessage().getAuthor().isBot()) {
             return;
         }
-        if(event.getMessage().getChannel().isPrivate()){
+        /*if(event.getMessage().getChannel().isPrivate()){
             RequestBuffer.request(()-> {
                 try {
                     event.getMessage().getChannel().sendMessage("Doesn't work in private channels!");
@@ -88,7 +88,7 @@ public class RemListener {
                 }
             });
             return;
-            }
+            }*/
 
         String msg = event.getMessage().getContent();
         pre = ";";
@@ -112,7 +112,7 @@ public class RemListener {
                 case"flip":
                     coinFlip(event);
                     break;
-                case"com.serenity.rem.modules.Purge":
+                case"purge":
                     Purge.purge(event);
                     break;
                 case"wh":
@@ -121,11 +121,11 @@ public class RemListener {
                 case"rmwh":
                     Whitelist.rmWhite(event);
                     break;
-                case"com.serenity.rem.modules.Help":
+                case"help":
                 case"h":
                     Help.help(event);
                     break;
-                case"com.serenity.rem.modules.SystemRem":
+                case"system":
                 case"sys":
                     SystemRem.sysInfo(event);
                     break;

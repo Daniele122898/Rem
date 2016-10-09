@@ -21,4 +21,8 @@ public class PlayerPOJO {
     public double skillHp;
 
 
+    public String getID(){
+        return ID;
+    }
+
 }
