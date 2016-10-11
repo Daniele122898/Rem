@@ -11,6 +11,7 @@ com\serenity\rem\main\RemListener.class
 com\serenity\rem\modules\ReZero.class
 com\serenity\rem\akkt\Item.class
 com\serenity\rem\modules\SystemRem.class
+com\serenity\rem\modules\MsgUtils.class
 com\serenity\rem\modules\RandomNumberGen.class
 com\serenity\rem\modules\FileStorage.class
 com\serenity\rem\modules\Help.class

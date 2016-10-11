@@ -37,7 +37,7 @@ public class Whitelist {
                     whiteID.add(userID + ";" + serverID);
                     RequestBuffer.request(() -> {
                         try {
-                            event.getMessage().getChannel().sendMessage("User " + msg[1] + " has been added to the com.serenity.rem.modules.Whitelist!");
+                            event.getMessage().getChannel().sendMessage("User " + msg[1] + " has been added to the Whitelist!");
                             FileUtils.writeLines(whiteList, whiteID);
                         } catch (MissingPermissionsException | DiscordException|IOException e) {
                             e.printStackTrace();
@@ -63,7 +63,7 @@ public class Whitelist {
         }else{
             RequestBuffer.request(() ->{
             try {
-                event.getMessage().getChannel().sendMessage("You have to Mention the user you wish to com.serenity.rem.modules.Whitelist!");
+                event.getMessage().getChannel().sendMessage("You have to Mention the user you wish to Whitelist!");
 
             } catch (MissingPermissionsException |DiscordException e) {
                 e.printStackTrace();

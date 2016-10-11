@@ -13,11 +13,12 @@ import java.nio.file.Files;
 
 public class RemBot {
 
+    private static IDiscordClient Rem;
     public static final Logger LOGGER = LoggerFactory.getLogger(RemBot.class);
 
     public static void main(String[] args){ // throws DiscordException
         try{
-        IDiscordClient Rem = getClient( getToken(), true);
+            Rem = getClient( getToken(), true);
             Rem.getDispatcher().registerListener(new RemListener());
     } catch (DiscordException e) {
     }
@@ -54,6 +55,10 @@ public class RemBot {
             System.exit(-2);
 
         return token;
+    }
+
+    public IDiscordClient getClient(){
+        return Rem;
     }
 
 }

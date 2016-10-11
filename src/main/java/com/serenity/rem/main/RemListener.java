@@ -1,17 +1,17 @@
 package com.serenity.rem.main;
 
-import com.serenity.rem.modules.*;
 import com.serenity.rem.akkt.Attk;
+import com.serenity.rem.modules.*;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.Status;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 /* TODO
 
  */
@@ -20,11 +20,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RemListener {
 
     private static String pre;
-    private static AtomicInteger channels = new AtomicInteger(0);
-    private static AtomicInteger users = new AtomicInteger(0);
-    private static int servers;
+    //private static AtomicInteger channels = new AtomicInteger(0);
+    //private static AtomicInteger users = new AtomicInteger(0);
+    //private static int servers;
     private Attk AttkM = new Attk();
     private ReZero reZero = new ReZero();
+    private RemBot main = new RemBot();
 
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) { // This method is called when the ReadyEvent is dispatched
@@ -33,9 +34,10 @@ public class RemListener {
         FileStorage.storage();
         Whitelist.load();
         AttkM.loadJason();
+        main.getClient().changeStatus(Status.game(";h for help"));
 
 
-
+        /*
         servers = event.getClient().getGuilds().size();
         //final int[] channels = {0};
         //final int[] users = {0};
@@ -50,7 +52,7 @@ public class RemListener {
             guild.getUsers().forEach(user -> { users.addAndGet(1); });
         });
 
-        /*
+
         event.getClient().getGuilds().forEach(guild -> {
             guild.getChannels().forEach(channel -> { channels[0]++; });
         });
@@ -59,13 +61,13 @@ public class RemListener {
         event.getClient().getGuilds().forEach(guild ->{
            guild.getUsers().forEach(channel -> {users[0]++;});
         });
-         */
+
 
         System.out.println("Servers: " + servers);
         //com.serenity.rem.modules.SystemRem.out.println("Channels: " + channels[0]);
         //com.serenity.rem.modules.SystemRem.out.println("Users: " + users[0]);
         System.out.println("Channles: " + channels.get());
-        System.out.println("Users: " + users.get());
+        System.out.println("Users: " + users.get());*/
 
     }
     //@EventSubscriber
@@ -295,6 +297,7 @@ public class RemListener {
     public static String getPre(){
         return pre;
     }
+    /*
     public static AtomicInteger getChannels(){
         return channels;
     }
@@ -305,6 +308,6 @@ public class RemListener {
 
     public static int getServers(){
         return servers;
-    }
+    }*/
 
 }

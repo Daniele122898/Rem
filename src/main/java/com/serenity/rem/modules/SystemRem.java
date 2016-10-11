@@ -1,10 +1,11 @@
 package com.serenity.rem.modules;
 
-import com.serenity.rem.main.RemListener;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Daniele on 30.09.2016.
@@ -41,6 +42,21 @@ And lastly the max usable ram is the maximum amount of ram your JVM may EVER use
         float allocatedRamUse = Math.round((runtime.totalMemory() - runtime.freeMemory()) / 1048576F); //java programm itself is using
         float allocatedRam = Math.round(runtime.freeMemory() / 1048576F);
         float maxRam = Math.round(runtime.maxMemory() / 1048576F); //Max ram for JAVA
+        int servers;
+        servers = event.getClient().getGuilds().size();
+
+        AtomicInteger channels = new AtomicInteger(0);
+        AtomicInteger users = new AtomicInteger(0);
+
+
+        event.getClient().getGuilds().forEach(guild -> {
+            guild.getChannels().forEach(channel -> { channels.addAndGet(1); });
+        });
+
+
+        event.getClient().getGuilds().forEach(guild -> {
+            guild.getUsers().forEach(user -> { users.addAndGet(1); });
+        });
 
         RequestBuffer.request(()->{
         try {
@@ -53,9 +69,9 @@ And lastly the max usable ram is the maximum amount of ram your JVM may EVER use
                             "```" +
                             ":satellite: Connections\n" +
                             "```" +
-                            "Connected Servers: " + RemListener.getServers() + "\n" +
-                            "Watching Channels: "+ RemListener.getChannels() + "\n" +
-                            "Users with access: " + RemListener.getUsers() + "\n\n" +
+                            "Connected Servers: " + servers + "\n" +
+                            "Watching Channels: "+ channels+ "\n" +
+                            "Users with access: " + users + "\n\n" +
                             "```"
             );
         } catch (MissingPermissionsException|DiscordException  e) {
