@@ -102,6 +102,40 @@ public class MusicV2 {
 
     }
 
+    public void updater(MessageReceivedEvent e){
+        //for(int i=0; i<e.getClient().getConnectedVoiceChannels().size(); i++){
+            //if(e.getClient().getConnectedVoiceChannels().get(i).getConnectedUsers().isEmpty()){
+            /*event.getClient().getGuilds().forEach(guild -> {
+                guild.getChannels().forEach(channel -> { channels.addAndGet(1); });
+            });*/
+
+            e.getClient().getConnectedVoiceChannels().forEach(voice ->{
+                if(voice.getConnectedUsers().size() < 2) {
+                    player.pause();
+                    voice.leave();
+                    MsgUtils.sendMsg(e, "Player paused and left Voice due to no one being there anymore");
+
+                }
+            });
+            //AtomicInteger deafCounter = new AtomicInteger(0);
+            e.getClient().getConnectedVoiceChannels().forEach(users->{
+                int ppl = users.getConnectedUsers().size();
+                users.getConnectedUsers().forEach(user->{
+                    int deafCounter2 = 0;
+                    if(user.isDeafLocally())
+                        //deafCounter.addAndGet(1);
+                    deafCounter2++;
+                    if(ppl - 1== deafCounter2) {
+                        player.pause();
+                        MsgUtils.sendMsg(e,"Player Paused due to everyone being deaf");
+                    }
+                });
+            });
+
+            //}
+        //}
+    }
+
     private void resetQueue(MessageReceivedEvent e){
         player.getAudioQueue().clear();
         MsgUtils.sendMsg(e, "Cleared the Queue list!");
@@ -173,17 +207,15 @@ public class MusicV2 {
                             AudioSource source = it.next();
                             AudioInfo info = source.getInfo();
                             List<AudioSource> queue = fPlayer.getAudioQueue();
-                            count++;
-                            if(count > 100){
-                                MsgUtils.sendMsg(e,"The max of 100 was reached. The first 100 Songs of the playlist where added.");
+                            if(queue.size() > 50){
+                                MsgUtils.sendMsg(e,"The max of 50 was reached. The queue can only hold up to 100 songs for better performance across all guilds.");
                                 if(info.getError() == null) {
                                     queue.add(source);
                                     if (!fPlayer.isPlaying())
                                         fPlayer.play();
                                 }
                                 break;
-                            }
-                            if(info.getError() == null){
+                            }else if(info.getError() == null){
                                 queue.add(source);
                                 if(!fPlayer.isPlaying())
                                     fPlayer.play();

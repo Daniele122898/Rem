@@ -75,6 +75,7 @@ public class RemListener {
 
     @EventSubscriber
     public void switchMessage(MessageReceivedEvent event){
+        m2.updater(event);
         AttkM.updateJson();
         if(event.getMessage().getAuthor().isBot()) {
             return;

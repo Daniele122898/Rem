@@ -309,7 +309,7 @@ public class Help {
                         ":information_source: Music > Adding Songs to Queue ```\n" +
                         "play <link>\n" +
                         "add <link>\n" +
-                        "Will download the song and then add it to the queue. Songs can be from Youtube, Soundcloud etc. \n" +
+                        "Will download the song and then add it to the queue. Songs can be from Youtube, Soundcloud (Virtually every website containing a video or music file!) \n" +
                         "If the Youtube link is a Playlist or the song is from a YT playlist the bot will download the entire playlist and add it to the queue!\n" +
                         "Sounds fun first but try to download 1000 songs and you will be faced with a huge queue and waiting time.\n" +
                         "```" +
