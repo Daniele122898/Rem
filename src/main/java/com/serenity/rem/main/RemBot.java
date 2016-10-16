@@ -16,12 +16,14 @@ public class RemBot {
     private static IDiscordClient Rem;
     public static final Logger LOGGER = LoggerFactory.getLogger(RemBot.class);
 
+
     public static void main(String[] args){ // throws DiscordException
         try{
             Rem = getClient( getToken(), true);
             Rem.getDispatcher().registerListener(new RemListener());
     } catch (DiscordException e) {
     }
+
 
     }
 

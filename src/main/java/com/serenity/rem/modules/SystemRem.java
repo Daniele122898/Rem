@@ -58,6 +58,8 @@ And lastly the max usable ram is the maximum amount of ram your JVM may EVER use
             guild.getUsers().forEach(user -> { users.addAndGet(1); });
         });
 
+        int voiceChannels = event.getClient().getConnectedVoiceChannels().size();
+
         RequestBuffer.request(()->{
         try {
             event.getMessage().getChannel().sendMessage(
@@ -71,7 +73,8 @@ And lastly the max usable ram is the maximum amount of ram your JVM may EVER use
                             "```" +
                             "Connected Servers: " + servers + "\n" +
                             "Watching Channels: "+ channels+ "\n" +
-                            "Users with access: " + users + "\n\n" +
+                            "Users with access: " + users + "\n" +
+                            "Playing music on : " + voiceChannels + " channels\n\n"+
                             "```"
             );
         } catch (MissingPermissionsException|DiscordException  e) {

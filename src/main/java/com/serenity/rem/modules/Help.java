@@ -12,6 +12,8 @@ import sx.blah.discord.util.RequestBuffer;
  */
 public class Help {
 
+    //TODO IMPROVE HELP ON MUSIC
+
 
     public static void help(MessageReceivedEvent event){
 
@@ -23,7 +25,7 @@ public class Help {
                                 ":information_source: Commands " + "```" +
                                 "ping     rem     morning     afk     flip     purge     rmwh\n\n" +
                                 "wh       sys     about       inv     help     git       re\n\n" +
-                                "ak\n\n" +
+                                "ak       music\n\n" +
                                 "```" +
                          "**h <command>:**  gives further information about the command"
                         );
@@ -33,10 +35,12 @@ public class Help {
             });
 
         }else{
-            //TODO
             switch(msg[1].toLowerCase()) {
                 case"ak":
                     akHelpMsg(event);
+                    break;
+                case"music":
+                    musicHelp(event);
                     break;
                 case"re":
                     try {
@@ -259,6 +263,69 @@ public class Help {
         }
 
     }
+
+    public static void musicHelp(MessageReceivedEvent e){
+        MsgUtils.sendMsg(e,"Check your PMs!");
+        RequestBuffer.request(()->{
+            try {
+                e.getMessage().getAuthor().getOrCreatePMChannel().sendMessage("" +
+                        ":information_source: Music > General ```Markdown\n" +
+                        "All of the following commands have the prefix:\n" +
+                        ""+RemListener.getPre()+"m \n" +
+                        "This is used to call the Music module. For example" +
+                        RemListener.getPre()+"m join\n" +
+                        "```" +
+                        ":information_source: Music > Joining & leaving ```\n" +
+                        "join\nsummon \n" +
+                        "  Will only join when the one executing the command is in a Voice channel. That channel will be joined then. \n\n" +
+                        "leave\n" +
+                        "        The Bot will leave the voice channel in which the Author of the command is in." +
+                        "\n ```" +
+                        ":information_source: Music > Player Controls ```\n" +
+                        "vol <vol>\n" +
+                        "volume <vol>\n" +
+                        "  The volume can be choosen between 0-100. I disabled any options above 100 since people love to troll with it.\n\n" +
+                        "pause\n" +
+                        "  Pauses the current song.\n\n" +
+                        "skip\n" +
+                        "  Skips the current song and plays, if existing, the next song in the playlist (or if shuffle is on it will play a random one)\n\n" +
+                        "shuffle\n" +
+                        "  Enables shuffling of the playlist\n\n" +
+                        "repeat\n" +
+                        "  Repeats the current song over and over again.\n\n" +
+                        "restart\n" +
+                        "  Restarts the current song.\n\n" +
+                        "stop\n" +
+                        "  Stops any playback completely.\n\n" +
+                        "play\n" +
+                        "  If paused it will resume to play the song and queue.\n\n" +
+                        "now\n" +
+                        "nowplaying\n" +
+                        "  Shows the current track being played with timestamp.\n\n" +
+                        "list\n" +
+                        "queue\n" +
+                        "  Shows the top 10 entries of the queue list and its total duration.\n"+
+                        "```\n" +
+                        ":information_source: Music > Adding Songs to Queue ```\n" +
+                        "play <link>\n" +
+                        "add <link>\n" +
+                        "Will download the song and then add it to the queue. Songs can be from Youtube, Soundcloud etc. \n" +
+                        "If the Youtube link is a Playlist or the song is from a YT playlist the bot will download the entire playlist and add it to the queue!\n" +
+                        "Sounds fun first but try to download 1000 songs and you will be faced with a huge queue and waiting time.\n" +
+                        "```" +
+                        ":information_source: Music > Reset ```\n" +
+                        "reset\n" +
+                        "reset will completely reset the bot. Deleting the downloadqueue, the playlist/queue and currently playing song!\n\n" +
+                        "clear\n" +
+                        "  Will clear the Queue list only but not reset the whole player!\n" +
+                        "```");
+            } catch (MissingPermissionsException | DiscordException e1) {
+                e1.printStackTrace();
+            }
+
+        });
+    }
+
     public static void akHelpMsg(MessageReceivedEvent event){
         RequestBuffer.request(()->{
         try {

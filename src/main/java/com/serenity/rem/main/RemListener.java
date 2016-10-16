@@ -12,9 +12,6 @@ import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
 
 import java.io.IOException;
-/* TODO
-
- */
 
 
 public class RemListener {
@@ -26,6 +23,7 @@ public class RemListener {
     private Attk AttkM = new Attk();
     private ReZero reZero = new ReZero();
     private RemBot main = new RemBot();
+    private MusicV2 m2 = new MusicV2();
 
     @EventSubscriber
     public void onReadyEvent(ReadyEvent event) { // This method is called when the ReadyEvent is dispatched
@@ -147,6 +145,9 @@ public class RemListener {
                     break;
                 case"shutdown":
                     shutdown(event);
+                    break;
+                case"m":
+                    m2.init(event);
                     break;
                 default:
                     //wrongCommand(event);

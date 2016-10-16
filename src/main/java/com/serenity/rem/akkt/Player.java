@@ -102,7 +102,7 @@ public class Player {
         }
     }
 
-    public void skillSystem(MessageReceivedEvent ev){//TODO
+    public void skillSystem(MessageReceivedEvent ev){
         event = ev;
         String[] msg = event.getMessage().toString().split("\\s");
         if(msg.length == 2){
@@ -726,7 +726,6 @@ public class Player {
         });
     }
     private void victory(){
-        //TODO
         onAdv = false;
         idle = true;
         double expGain = expGain();
@@ -765,7 +764,6 @@ public class Player {
     }
 
     private void death(){
-        //TODO
         RequestBuffer.request(()->{
             try {
                 event.getMessage().getChannel().sendMessage("**YOU DIED**");

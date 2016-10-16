@@ -4,6 +4,7 @@ com\serenity\rem\akkt\Enemy.class
 com\serenity\rem\akkt\PlayerPOJO.class
 com\serenity\rem\akkt\Player.class
 com\serenity\rem\modules\Purge.class
+com\serenity\rem\modules\MusicV2.class
 com\serenity\rem\akkt\RedPot.class
 com\serenity\rem\modules\AFKcommand.class
 com\serenity\rem\akkt\AllPlayersPOJO.class
@@ -15,6 +16,7 @@ com\serenity\rem\modules\MsgUtils.class
 com\serenity\rem\modules\RandomNumberGen.class
 com\serenity\rem\modules\FileStorage.class
 com\serenity\rem\modules\Help.class
+com\serenity\rem\modules\MusicV2$1.class
 com\serenity\rem\akkt\Gold.class
 com\serenity\rem\akkt\Inventory.class
 com\serenity\rem\akkt\Attk.class
