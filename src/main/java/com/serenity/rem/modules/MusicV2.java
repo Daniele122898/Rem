@@ -18,6 +18,7 @@ import sx.blah.discord.util.RequestBuffer;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Daniele on 15.10.2016.
@@ -108,28 +109,25 @@ public class MusicV2 {
             /*event.getClient().getGuilds().forEach(guild -> {
                 guild.getChannels().forEach(channel -> { channels.addAndGet(1); });
             });*/
-
+            //TODO PAUSE AND LEAVE. ONLY WORKS WITH 1 DEAFED PERSON. TEST WHY!
             e.getClient().getConnectedVoiceChannels().forEach(voice ->{
                 if(voice.getConnectedUsers().size() < 2) {
                     player.pause();
                     voice.leave();
-                    MsgUtils.sendMsg(e, "Player paused and left Voice due to no one being there anymore");
-
                 }
             });
-            //AtomicInteger deafCounter = new AtomicInteger(0);
+            AtomicInteger deafCounter = new AtomicInteger(0);
             e.getClient().getConnectedVoiceChannels().forEach(users->{
                 int ppl = users.getConnectedUsers().size();
                 users.getConnectedUsers().forEach(user->{
-                    int deafCounter2 = 0;
-                    if(user.isDeafLocally())
-                        //deafCounter.addAndGet(1);
-                    deafCounter2++;
-                    if(ppl - 1== deafCounter2) {
+                    if(user.isDeafLocally()) {
+                        deafCounter.addAndGet(1);
+                    }
+                    if(ppl - 1== deafCounter.intValue()) {
                         player.pause();
-                        MsgUtils.sendMsg(e,"Player Paused due to everyone being deaf");
                     }
                 });
+                deafCounter.set(0);
             });
 
             //}
@@ -208,7 +206,7 @@ public class MusicV2 {
                             AudioInfo info = source.getInfo();
                             List<AudioSource> queue = fPlayer.getAudioQueue();
                             if(queue.size() > 50){
-                                MsgUtils.sendMsg(e,"The max of 50 was reached. The queue can only hold up to 100 songs for better performance across all guilds.");
+                                MsgUtils.sendMsg(e,"The max of 50 was reached. The queue can only hold up to 50 songs for better performance across all guilds.");
                                 if(info.getError() == null) {
                                     queue.add(source);
                                     if (!fPlayer.isPlaying())

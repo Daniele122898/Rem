@@ -4,6 +4,12 @@ config/players.json
 config/afklist
 config/com.serenity.rem.modules.Whitelist
 com.serenity.rem.main.RemBot.iml
+.idea/
+ffmpeg-3.1.4-win64-static/
+target/
+ffmpeg.exe
+ffprobe.exe
+youtube-dl
 
 
 ### Intellij+iml ###
