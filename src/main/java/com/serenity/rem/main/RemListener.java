@@ -12,6 +12,8 @@ import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class RemListener {
@@ -72,6 +74,13 @@ public class RemListener {
     public void onMessageReceivedEvent(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
 
     }
+
+    /*@EventSubscriber //TODO FUCKING WELCOM MESSAGE
+    public void userEvent(UserJoinEvent j, UserLeaveEvent l){
+        String joiner = j.getUser().getName();
+        j.getGuild().getChannelsByName()
+
+    }*/
 
     @EventSubscriber
     public void switchMessage(MessageReceivedEvent event){
@@ -149,6 +158,29 @@ public class RemListener {
                     break;
                 case"m":
                     m2.init(event);
+                    break;
+                case"swag":
+                case "cool":
+                    RequestBuffer.request(()->{
+                    try {
+                        Timer timer = new Timer();
+                        IMessage Message = event.getMessage().getChannel().sendMessage("( ͡° ͜ʖ ͡°)>⌐■-■ ");
+                        timer.schedule(new TimerTask() {//TODO TIMED TASK
+                            @Override
+                            public void run() {
+                                RequestBuffer.request(()-> {
+                                    try {
+                                        Message.edit("( ͡⌐■ ͜ʖ ͡-■)");
+                                    } catch (MissingPermissionsException | DiscordException e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+                            }
+                        }, 1000);
+                    } catch (MissingPermissionsException | DiscordException e) {
+                        e.printStackTrace();
+                    }
+                    });
                     break;
                 default:
                     //wrongCommand(event);

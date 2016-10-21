@@ -2,4 +2,8 @@
 
 A java bot dedicated to Rem
 
-Should be a copy of my c# bot so it can run on my Ubuntu Server
+Does Multiple things like
+- Playing music
+- Greeting you in the morning <3
+- Helping you with decisions by flipping a coin
+- Has an integrated RPG game if you're bored.. etc

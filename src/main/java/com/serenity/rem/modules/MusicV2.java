@@ -112,7 +112,9 @@ public class MusicV2 {
             //TODO PAUSE AND LEAVE. ONLY WORKS WITH 1 DEAFED PERSON. TEST WHY!
             e.getClient().getConnectedVoiceChannels().forEach(voice ->{
                 if(voice.getConnectedUsers().size() < 2) {
-                    player.pause();
+                    if(!player.isStopped()) {
+                        player.pause();
+                    }
                     voice.leave();
                 }
             });
@@ -124,6 +126,7 @@ public class MusicV2 {
                         deafCounter.addAndGet(1);
                     }
                     if(ppl - 1== deafCounter.intValue()) {
+                        if(!player.isStopped())
                         player.pause();
                     }
                 });
