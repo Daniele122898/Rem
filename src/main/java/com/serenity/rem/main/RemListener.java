@@ -159,6 +159,9 @@ public class RemListener {
                 case"m":
                     m2.init(event);
                     break;
+                case"gc":
+                    garbage(event);
+                    break;
                 case"swag":
                 case "cool":
                     RequestBuffer.request(()->{
@@ -217,6 +220,15 @@ public class RemListener {
             }
         } else {
             return;
+        }
+    }
+
+    private void garbage(MessageReceivedEvent e){
+        if(e.getMessage().getAuthor().getID().equals("192750776005689344")) {
+            System.gc();
+            MsgUtils.sendMsg(e, "GC executed");
+        }else{
+            MsgUtils.sendMsg(e, "Only the Bot owner has permissions to use this command!");
         }
     }
 

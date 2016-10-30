@@ -64,7 +64,7 @@ public class Help {
                                         "ParameterType: Required\n\n" +
                                         "Parameter: Mention of the user that should get Whitelisted\n\n" +
                                         "Premissions needed: ServerOwner status or on the Whitelist\n\n" +
-                                        "The user added on the com.serenity.rem.modules.Whitelist can add or remove other people aswell as use administrative commands; Purge etc\n" +
+                                        "The user added on the Whitelist can add or remove other people aswell as use administrative commands; Purge etc\n" +
                                         "```"
                         );
                     } catch (MissingPermissionsException |RateLimitException |DiscordException e) {
