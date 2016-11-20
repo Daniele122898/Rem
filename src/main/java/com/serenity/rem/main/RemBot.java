@@ -6,9 +6,9 @@ import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.util.DiscordException;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 public class RemBot {
@@ -41,7 +41,7 @@ public class RemBot {
 
 
 
-    private static String getToken(){
+    /*private static String getToken(){
         File tokenFile = new File("config/token");//CHANGE FOR TEMP BOT TO token2
 
         if(!tokenFile.exists())
@@ -57,6 +57,22 @@ public class RemBot {
             System.exit(-2);
 
         return token;
+    }*/
+
+    private static String getToken() {
+        StringBuilder token = new StringBuilder();
+        try {
+            Files.lines(Paths.get("config/token")).forEach(token::append);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("TOKEN FAILIURE: IOEX");
+        }
+        String r = token.toString();
+
+        if(r.length() != 59)
+            System.exit(1);
+
+        return r;
     }
 
     public IDiscordClient getClient(){

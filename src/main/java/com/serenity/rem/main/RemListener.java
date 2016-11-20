@@ -5,9 +5,11 @@ import com.serenity.rem.modules.*;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
+import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.Status;
 import sx.blah.discord.util.DiscordException;
+import sx.blah.discord.util.MessageBuilder;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
 
@@ -107,63 +109,83 @@ public class RemListener {
             switch (msgL[0].substring(pre.length()).toLowerCase()) {
                 case "ping":
                     ping(event);
+                    cctv(event);
                     break;
                 case"rem":
                     randomRem(event);
+                    cctv(event);
                     break;
                 case"morning":
                     remMorning(event);
+                    cctv(event);
                     break;
                 case"afk":
                     AFKcommand.afk(event);
+                    cctv(event);
                     break;
                 //case event.getMessage().getMentions():
                   //  break;
                 case"flip":
                     coinFlip(event);
+                    cctv(event);
                     break;
                 case"purge":
                     Purge.purge(event);
+                    cctv(event);
                     break;
                 case"wh":
                     Whitelist.addWhite(event);
+                    cctv(event);
                     break;
                 case"rmwh":
                     Whitelist.rmWhite(event);
+                    cctv(event);
                     break;
                 case"help":
                 case"h":
                     Help.help(event);
+                    cctv(event);
                     break;
                 case"system":
                 case"sys":
                     SystemRem.sysInfo(event);
+                    cctv(event);
                     break;
                 case"git":
                 case"github":
                     gitHub(event);
+                    cctv(event);
                     break;
                 case"invite":
                 case"inv":
                     invBot(event);
+                    cctv(event);
                     break;
                 case"re":
                     reZero.initialize(event);
+                    cctv(event);
                     break;
                 case"ak":
                     AttkM.start(event);
+                    cctv(event);
                     break;
                 case"shutdown":
                     shutdown(event);
+                    cctv(event);
                     break;
                 case"m":
                     m2.init(event);
+                    cctv(event);
                     break;
                 case"gc":
                     garbage(event);
+                    cctv(event);
+                    break;
+                case"admin":
+                    admininfo(event);
+                    cctv(event);
                     break;
                 case"swag":
-                case "cool":
                     RequestBuffer.request(()->{
                     try {
                         Timer timer = new Timer();
@@ -184,6 +206,7 @@ public class RemListener {
                         e.printStackTrace();
                     }
                     });
+                    cctv(event);
                     break;
                 default:
                     //wrongCommand(event);
@@ -221,6 +244,46 @@ public class RemListener {
         } else {
             return;
         }
+    }
+
+    private void admininfo(MessageReceivedEvent e){
+        if(e.getMessage().getAuthor().getID().equals("192750776005689344")) {
+            MessageBuilder msgB = new MessageBuilder(e.getClient()).withChannel(e.getMessage().getChannel());
+            RequestBuffer.request(()->{
+                msgB.appendContent("Server Name: "+e.getMessage().getGuild().getName()+"\n" +
+                        "Server ID: "+ e.getMessage().getGuild().getID()+"\n" +
+                        "Channel ID: `" + e.getMessage().getChannel().toString()+"`");
+                for (int i = 0; i<main.getClient().getGuilds().size();i++){
+                    msgB.appendContent("\nGuild Name: " + main.getClient().getGuilds().get(i).getName()+"\n");
+                }
+                try {
+                    msgB.send();
+                } catch (DiscordException | MissingPermissionsException e1) {
+                    e1.printStackTrace();
+                }
+            });
+        }
+    }
+
+    private void cctv(MessageReceivedEvent e){
+        IChannel channel = main.getClient().getGuildByID("229310654517870592").getChannelByID("249862331805204480");
+        MessageBuilder msgB = new MessageBuilder(main.getClient()).withChannel(channel);
+        msgB.appendContent(":information_source: CCTV ``` \n" +
+                "Guild Name: "+ e.getMessage().getGuild().getName()+"\n"+
+                "Guild ID: "+ e.getMessage().getGuild().getID() +"\n"+
+                "User Name: "+ e.getMessage().getAuthor().getName() +"\n"+
+                "User ID: "+ e.getMessage().getAuthor().getID() +"\n"+
+                "Date: "+ e.getMessage().getTimestamp().toString()+"\n"+
+                "Message: "+e.getMessage().toString()+"\n"+
+                "```");
+        RequestBuffer.request(()->{
+            try {
+                msgB.send();
+            } catch (DiscordException | MissingPermissionsException e1) {
+                e1.printStackTrace();
+            }
+        });
+
     }
 
     private void garbage(MessageReceivedEvent e){

@@ -25,7 +25,7 @@ public class Help {
                                 ":information_source: Commands " + "```" +
                                 "ping     rem     morning     afk     flip     purge     rmwh\n\n" +
                                 "wh       sys     about       inv     help     git       re\n\n" +
-                                "ak       music\n\n" +
+                                "ak       music   swag\n\n" +
                                 "```" +
                          "**h <command>:**  gives further information about the command"
                         );
@@ -36,6 +36,14 @@ public class Help {
 
         }else{
             switch(msg[1].toLowerCase()) {
+                case"swag":
+                    MsgUtils.sendMsg(event, ":information_source: Commands > swag ```" +
+                            RemListener.getPre()+"swag \n\n"+
+                            "ParameterType: None\n\n" +
+                            "Premissions needed: None\n\n" +
+                            "Animates the most swaggy message ever.\n" +
+                            "```");
+                    break;
                 case"ak":
                     akHelpMsg(event);
                     break;
