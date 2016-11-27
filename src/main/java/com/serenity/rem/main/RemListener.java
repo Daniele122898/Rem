@@ -182,9 +182,7 @@ public class RemListener {
                 case"admin":
                     admininfo(event);
                     cctv(event);
-                    break;
                     break;*/
-
                 case"swag":
                     RequestBuffer.request(()->{
                     try {
@@ -287,9 +285,7 @@ public class RemListener {
 
     }
 /*
-    private void garbage(MessageReceivedEvent e){
-    private void garbage(MessageReceivedEvent e){
->>>>>>> origin/master
+    /*private void garbage(MessageReceivedEvent e){
         if(e.getMessage().getAuthor().getID().equals("192750776005689344")) {
             System.gc();
             MsgUtils.sendMsg(e, "GC executed");
