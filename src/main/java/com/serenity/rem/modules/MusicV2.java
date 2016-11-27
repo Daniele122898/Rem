@@ -189,8 +189,20 @@ public class MusicV2 {
             //leave it as it is xd yeah :D
             //you gonna move it later to linux? yes ubutnu server 16.04 i think i had some issues with it but i fixed them lel no XD fuck.
             //you just need to install differently ffmpeg and ffprobe
+            System.out.println("TEST1");
 
-            Playlist playlist = Playlist.getPlaylist(url);
+            Playlist playlist = null;//TODO BETTER SHIT
+            try {
+                playlist = Playlist.getPlaylist(url);
+            } catch(NullPointerException e1){
+                e1.printStackTrace();
+                System.out.println("TEST 2");
+                MsgUtils.sendMsg(e, "Failed to donwload Video! Possible reasons: \n" +
+                        "Video not Available in Bot's country / Failed the Conversion / Failed to find Video!");
+                return;
+            }
+
+            //Playlist playlist = Playlist.getPlaylist(url);
             List<AudioSource> sources = new LinkedList<>(playlist.getSources());
 
             //AudioSource source = new RemoteSource(url);
@@ -201,7 +213,7 @@ public class MusicV2 {
                         "Proceeding to gather information and queue sources. This may take some time...");
                 final MusicPlayer fPlayer = player; //TODO UNDERSTAND THIS SHIT!
                 Thread thread = new Thread(){
-                    int count=0;
+                    //int count=0;
                     @Override
                     public void run(){
                         for(Iterator<AudioSource> it = sources.iterator(); it.hasNext();){

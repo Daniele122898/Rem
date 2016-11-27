@@ -123,8 +123,6 @@ public class RemListener {
                     AFKcommand.afk(event);
                     cctv(event);
                     break;
-                //case event.getMessage().getMentions():
-                  //  break;
                 case"flip":
                     coinFlip(event);
                     cctv(event);
@@ -177,7 +175,7 @@ public class RemListener {
                     m2.init(event);
                     cctv(event);
                     break;
-                case"gc":
+                /*case"gc":
                     garbage(event);
                     cctv(event);
                     break;
@@ -185,6 +183,8 @@ public class RemListener {
                     admininfo(event);
                     cctv(event);
                     break;
+                    break;*/
+
                 case"swag":
                     RequestBuffer.request(()->{
                     try {
@@ -246,6 +246,7 @@ public class RemListener {
         }
     }
 
+
     private void admininfo(MessageReceivedEvent e){
         if(e.getMessage().getAuthor().getID().equals("192750776005689344")) {
             MessageBuilder msgB = new MessageBuilder(e.getClient()).withChannel(e.getMessage().getChannel());
@@ -285,15 +286,17 @@ public class RemListener {
         });
 
     }
-
+/*
     private void garbage(MessageReceivedEvent e){
+    private void garbage(MessageReceivedEvent e){
+>>>>>>> origin/master
         if(e.getMessage().getAuthor().getID().equals("192750776005689344")) {
             System.gc();
             MsgUtils.sendMsg(e, "GC executed");
         }else{
             MsgUtils.sendMsg(e, "Only the Bot owner has permissions to use this command!");
         }
-    }
+    }*/
 
     private void shutdown(MessageReceivedEvent e){
         if(e.getMessage().getAuthor().getID().equals("192750776005689344")) {
