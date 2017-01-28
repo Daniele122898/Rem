@@ -1,4 +1,9 @@
-# Rem
+# Rem - Deprecated
+
+Still online and available to invite. But no bug fixes will be done. 
+
+Visit Sora for the new Discord Bot:
+http://git.argus.moe/serenity/SoraBot
 
 A java bot dedicated to Rem
 
